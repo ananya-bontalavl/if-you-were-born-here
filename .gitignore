@@ -14,4 +14,4 @@ dist/
 .env
 
 # Logs
-*.log
+*.log.DS_Store
