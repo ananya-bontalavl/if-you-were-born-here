@@ -52,11 +52,8 @@ const GlobeSpinning = ({ winner, globeRef, setStage }: Props) => {
           backgroundColor="rgba(0,0,0,0)"
           globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
           
-          // --- POLYGON SETTINGS FOR RAINBOW COUNTRIES ---
           polygonsData={countries}
-          // FIXED: Added (d: any) to satisfy TypeScript
           polygonAltitude={(d: any) => (d.properties.NAME === winner.name || d.properties.ADMIN === winner.name) ? 0.05 : 0.01}
-          // FIXED: Added (d: any) to satisfy TypeScript
           polygonCapColor={(d: any) => (d.properties.NAME === winner.name || d.properties.ADMIN === winner.name) ? winner.color : getRainbowColor(d)}
           polygonSideColor={() => 'rgba(0, 0, 0, 0.3)'}
           polygonStrokeColor={() => '#000'}

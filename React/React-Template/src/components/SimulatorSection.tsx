@@ -57,7 +57,6 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
           boxShadow: 'inset 0 0 50px rgba(0,0,0,1)'
         }}>
           
-          {/* We removed Chapter1Chart from here! Now it just shows the placeholder text for the background. */}
           <p style={{ color: '#333', fontStyle: 'italic', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '10px' }}>
             Visualization Stage: {winner.name} (Chapter {localChapter})
           </p>
@@ -70,7 +69,6 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
         
         {/* CHAPTER 1 */}
         <section id="chapter-1" ref={chapter1Ref} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '50px 0' }}>
-          {/* I increased maxWidth slightly so the chart has plenty of breathing room */}
           <div style={{
             maxWidth: '650px', padding: '50px', backgroundColor: 'rgba(0,0,0,0.85)', 
             backdropFilter: 'blur(20px)', borderRadius: '40px', border: '1px solid #333', 
@@ -83,7 +81,6 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
               Your survival is the baseline for everything that follows.
             </p>
 
-            {/* THE CHART IS NOW INSIDE THE CARD! */}
             <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
               <Chapter1Chart countryData={winner} />
             </div>

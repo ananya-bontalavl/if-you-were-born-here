@@ -56,7 +56,6 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
               Survival (Age 5)
             </p>
           </div>
-          {/* THE FIX: Replaced "Evaluating..." with the actual survival math */}
           <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 1 ? '#ef4444' : '#555' }}>
             {activeChapter >= 1 ? `${survivalRate}%` : 'Locked'}
           </p>
@@ -80,8 +79,41 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
           </p>
         </div>
 
-        {/* ... Keep the other chapters as they are for now ... */}
+        {/* CHAPTER 3: Adulthood (Income) */}
+        <div style={{ 
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          opacity: activeChapter >= 3 ? 1 : 0.3,
+          transform: activeChapter >= 3 ? 'translateY(0)' : 'translateY(5px)',
+          transition: 'all 0.5s ease 0.1s'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Briefcase size={16} color={activeChapter >= 3 ? '#eab308' : '#555'} />
+            <p style={{ fontSize: '11px', color: activeChapter >= 3 ? '#ddd' : '#555', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>
+              Adulthood (Income)
+            </p>
+          </div>
+          <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 3 ? '#eab308' : '#555' }}>
+            {activeChapter >= 3 ? 'Evaluating...' : 'Locked'}
+          </p>
+        </div>
 
+        {/* CHAPTER 4: Final Stage (Life Expectancy) */}
+        <div style={{ 
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          opacity: activeChapter >= 4 ? 1 : 0.3,
+          transform: activeChapter >= 4 ? 'translateY(0)' : 'translateY(5px)',
+          transition: 'all 0.5s ease 0.1s'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Hourglass size={16} color={activeChapter >= 4 ? '#a855f7' : '#555'} />
+            <p style={{ fontSize: '11px', color: activeChapter >= 4 ? '#ddd' : '#555', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>
+              Life Expectancy
+            </p>
+          </div>
+          <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 4 ? '#a855f7' : '#555' }}>
+            {activeChapter >= 4 ? 'Evaluating...' : 'Locked'}
+          </p>
+        </div>
       </div>
     </div>
   );
