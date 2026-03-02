@@ -8,7 +8,6 @@ export default function Chapter2Chart({ countryData, countriesData }) {
   useEffect(() => {
     if (!countryData || !countriesData) return;
 
-  
     d3.select(ladderRef.current).selectAll("*").remove();
     d3.select(rankingRef.current).selectAll("*").remove();
 
@@ -94,10 +93,19 @@ export default function Chapter2Chart({ countryData, countriesData }) {
       )
       .slice(0, 8);
 
-    const margin = { top: 10, right: 60, bottom: 10, left: 140 };
+    const margin = { top: 10, right: 70, bottom: 10, left: 140 };
     const rWidth = 400;
     const rHeight = ranked.length * 30;
     const innerWidth = rWidth - margin.left - margin.right;
+
+    // Header
+    d3.select(rankingRef.current)
+      .append("p")
+      .style("font-weight", "600")
+      .style("font-size", "14px")
+      .style("margin-bottom", "4px")
+      .style("margin-top", "0")
+      .text(`Ranking in ${group} category`);
 
     const rSvg = d3.select(rankingRef.current)
       .append("svg")
@@ -128,11 +136,25 @@ export default function Chapter2Chart({ countryData, countriesData }) {
         d.Country === countryData.Country ? "#f28e2b" : "#9ecae9"
       );
 
+    // Rank numbers
+    gRank.selectAll("text.rank")
+      .data(ranked)
+      .enter()
+      .append("text")
+      .attr("class", "rank")
+      .attr("x", -margin.left + 10)
+      .attr("y", d => y(d.Country) + y.bandwidth() / 2)
+      .attr("alignment-baseline", "middle")
+      .style("font-size", "12px")
+      .style("fill", "#888")
+      .text((d, i) => `${i + 1}.`);
+
     // Country labels
     gRank.selectAll("text.label")
       .data(ranked)
       .enter()
       .append("text")
+      .attr("class", "label")
       .attr("x", -10)
       .attr("y", d => y(d.Country) + y.bandwidth() / 2)
       .attr("text-anchor", "end")
@@ -145,11 +167,12 @@ export default function Chapter2Chart({ countryData, countriesData }) {
       .data(ranked)
       .enter()
       .append("text")
+      .attr("class", "value")
       .attr("x", d => x(d["Years of Schooling(2000-2023)"]) + 6)
       .attr("y", d => y(d.Country) + y.bandwidth() / 2)
       .attr("alignment-baseline", "middle")
       .style("font-size", "11px")
-      .text(d => d["Years of Schooling(2000-2023)"].toFixed(1));
+      .text(d => `${d["Years of Schooling(2000-2023)"].toFixed(1)} yrs`);
 
   }, [countryData, countriesData]);
 
