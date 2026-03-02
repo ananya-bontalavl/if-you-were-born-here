@@ -54,9 +54,13 @@ export default function Chapter4Chart({ selectedCountry }) {
 
       // ---- AXES ----
       svg
-        .append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+       .append("g")
+       .attr("transform", `translate(0,${height})`)
+       .call(
+      d3.axisBottom(x)
+      .ticks(Math.max(1, 2022 - startYear))
+      .tickFormat(d3.format("d"))
+  );
 
       svg.append("g").call(d3.axisLeft(y));
 
@@ -250,7 +254,7 @@ export default function Chapter4Chart({ selectedCountry }) {
         <input
           type="range"
           min="2000"
-          max="2023"
+          max="2022"
           value={startYear}
           onChange={(e) => setStartYear(+e.target.value)}
           style={{ width: "100%" }}
