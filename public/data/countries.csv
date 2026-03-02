@@ -1,0 +1,21 @@
+Country,Category,Child Mortality(per 100)(2000- 2023),GNI adjusted with PPP(2000-2023),Years of Schooling(2000-2023),Life Expectancy(2000-2023),,Education (Secondary) (2015-2023)
+United States,High Income,0.73,54030.8,16.26,78.07,,99.23
+Germany,High Income,0.43,46008.75,16.85,80.07,,100.94
+Japan,High Income,0.32,38513.33,15.29,83.15,,102.21
+Canada,High Income,0.56,42533.3,15.65,81.12,,110.44
+Australia,High Income,0.47,42075.42,21.76,81.98,,101.13
+China,Upper Middle Income,1.67,11311.6,13.1,75.78,,92.26
+Brazil,Upper Middle Income,1.44,13705,15.16,73.44,,104.03
+Mexico,Upper Middle Income,2.02,16798.7,13.63,73.56,,102.46
+South Africa,Upper Middle Income,5.29,11887.92,13.11,60.31,,104.22
+Turkey,Upper Middle Income,1.9,20867.5,15.45,75.16,,111.93
+India,Lower Middle Income,5.57,4878.7,11.16,67.45,,77.25
+Vietnam,Lower Middle Income,2.34,6729.58,13.08,73.74,,92.19
+Zimbabwe,Lower Middle Income,7.3,3586.67,10.77,53.8,,52.41
+Egypt,Lower Middle Income,2.86,9856.6,11.66,69.35,,79.01
+Bangladesh,Lower Middle Income,4.95,4105.4,9.93,68.53,,64.73
+Ethiopia,Low Income,8.32,1375,7.6,59.99,,33.91
+Afghanistan,Low Income,8.74,1741.67,9.14,60.49,,54.8699
+Niger,Low Income,14.8,1177.92,5.27,56.53,,21.921
+Chad,Low Income,14.23,1984.58,6.95,50.73,,21.8435
+Somalia,Low Income,16.07,1005.42,7.49,52.05,,4.3607

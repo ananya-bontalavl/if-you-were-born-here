@@ -10,7 +10,7 @@ export default function Chapter1Chart({ countryData }) {
 
     d3.select(container).selectAll("*").remove();
 
-    const mortality = +countryData["Child Mortality(per 100)(2023)"];
+    const mortality = +countryData["Child Mortality(per 100)(2000- 2023)"];
     const fullFaded = Math.floor(mortality);
     const partial = mortality - fullFaded;
 

@@ -3,22 +3,23 @@ import * as d3 from "d3";
 
 import Chapter1Chart from "./charts/Chapter1Chart.jsx";
 import Chapter2Chart from "./charts/Chapter2Chart.jsx";
+import Chapter3Chart from "./charts/Chapter3Chart.jsx";
 
 export default function App() {
   const [countriesData, setCountriesData] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
-  // Load CSV on mount
   useEffect(() => {
     d3.csv("/data/countries.csv").then((data) => {
       const parsed = data.map(d => ({
         ...d,
         "Child Mortality(per 100)(2023)": +d["Child Mortality(per 100)(2023)"],
-        "Years of Schooling(2000-2023)": +d["Years of Schooling(2000-2023)"]
+        "Years of Schooling(2000-2023)": +d["Years of Schooling(2000-2023)"],
+        "GNI adjusted with PPP(2000-2023)": +d["GNI adjusted with PPP(2000-2023)"]
       }));
 
       setCountriesData(parsed);
-      setSelectedCountry(parsed[0]); // default = first country
+      setSelectedCountry(parsed[0]);
     });
   }, []);
 
@@ -26,9 +27,9 @@ export default function App() {
 
   return (
     <div className="App">
-      <h2>Chapter 1 – Childhood</h2>
 
-      {/* Country selector */}
+      <h1>If You Were Born Here…</h1>
+
       <select
         value={selectedCountry.Country}
         onChange={(e) => {
@@ -45,16 +46,27 @@ export default function App() {
         ))}
       </select>
 
-      {/* Chapter 1 chart */}
-      <Chapter1Chart countryData={selectedCountry} />
+      <div className="chapter">
+        <h2>Chapter 1 – Childhood</h2>
+        <Chapter1Chart countryData={selectedCountry} />
+      </div>
 
-      <h2>Chapter 2 – Education</h2>
+      <div className="chapter">
+        <h2>Chapter 2 – Education</h2>
+        <Chapter2Chart
+          countryData={selectedCountry}
+          countriesData={countriesData}
+        />
+      </div>
 
-      {/* Chapter 2 ladder + ranking */}
-      <Chapter2Chart
-        countryData={selectedCountry}
-        countriesData={countriesData}
-      />
+      <div className="chapter">
+        <h2>Chapter 3 – Adult Life (Income)</h2>
+        <Chapter3Chart
+          countryData={selectedCountry}
+          countriesData={countriesData}
+        />
+      </div>
+
     </div>
   );
 }
