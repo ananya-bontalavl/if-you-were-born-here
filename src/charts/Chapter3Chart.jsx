@@ -127,7 +127,7 @@ You are in the global top 5% — your income exceeds that of 95% of the world's 
     g.append("circle")
       .attr("cx", gniX)
       .attr("cy", -5)
-      .attr("r", 7)
+      .attr("r", 5)
       .attr("fill", "black");
 
     g.append("text")

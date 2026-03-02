@@ -1,0 +1,601 @@
+Country,Code,Year,Life expectancy
+Afghanistan,AFG,2000,55.0
+Afghanistan,AFG,2001,55.51
+Afghanistan,AFG,2002,56.23
+Afghanistan,AFG,2003,57.17
+Afghanistan,AFG,2004,57.81
+Afghanistan,AFG,2005,58.25
+Afghanistan,AFG,2006,58.55
+Afghanistan,AFG,2007,58.96
+Afghanistan,AFG,2008,59.71
+Afghanistan,AFG,2009,60.25
+Afghanistan,AFG,2010,60.7
+Afghanistan,AFG,2011,61.25
+Afghanistan,AFG,2012,61.73
+Afghanistan,AFG,2013,62.19
+Afghanistan,AFG,2014,62.26
+Afghanistan,AFG,2015,62.27
+Afghanistan,AFG,2016,62.65
+Afghanistan,AFG,2017,62.41
+Afghanistan,AFG,2018,62.44
+Afghanistan,AFG,2019,62.94
+Afghanistan,AFG,2020,61.45
+Afghanistan,AFG,2021,60.42
+Afghanistan,AFG,2022,65.62
+Afghanistan,AFG,2023,66.03
+Australia,AUS,2000,79.62
+Australia,AUS,2001,80.01
+Australia,AUS,2002,80.05
+Australia,AUS,2003,80.44
+Australia,AUS,2004,80.73
+Australia,AUS,2005,81.09
+Australia,AUS,2006,81.26
+Australia,AUS,2007,81.23
+Australia,AUS,2008,81.43
+Australia,AUS,2009,81.73
+Australia,AUS,2010,82.01
+Australia,AUS,2011,82.09
+Australia,AUS,2012,82.3
+Australia,AUS,2013,82.55
+Australia,AUS,2014,82.52
+Australia,AUS,2015,82.6
+Australia,AUS,2016,82.8
+Australia,AUS,2017,82.72
+Australia,AUS,2018,83.26
+Australia,AUS,2019,83.24
+Australia,AUS,2020,83.66
+Australia,AUS,2021,83.56
+Australia,AUS,2022,82.77
+Australia,AUS,2023,83.92
+Bangladesh,BGD,2000,62.05
+Bangladesh,BGD,2001,62.84
+Bangladesh,BGD,2002,63.59
+Bangladesh,BGD,2003,64.29
+Bangladesh,BGD,2004,64.91
+Bangladesh,BGD,2005,65.51
+Bangladesh,BGD,2006,66.05
+Bangladesh,BGD,2007,66.46
+Bangladesh,BGD,2008,67.05
+Bangladesh,BGD,2009,67.53
+Bangladesh,BGD,2010,68.01
+Bangladesh,BGD,2011,68.5
+Bangladesh,BGD,2012,68.99
+Bangladesh,BGD,2013,69.49
+Bangladesh,BGD,2014,70.02
+Bangladesh,BGD,2015,70.54
+Bangladesh,BGD,2016,71.08
+Bangladesh,BGD,2017,71.61
+Bangladesh,BGD,2018,72.12
+Bangladesh,BGD,2019,72.63
+Bangladesh,BGD,2020,71.42
+Bangladesh,BGD,2021,71.1
+Bangladesh,BGD,2022,74.26
+Bangladesh,BGD,2023,74.67
+Brazil,BRA,2000,69.58
+Brazil,BRA,2001,69.98
+Brazil,BRA,2002,70.4
+Brazil,BRA,2003,70.88
+Brazil,BRA,2004,71.36
+Brazil,BRA,2005,71.83
+Brazil,BRA,2006,72.3
+Brazil,BRA,2007,72.73
+Brazil,BRA,2008,73.11
+Brazil,BRA,2009,73.46
+Brazil,BRA,2010,73.78
+Brazil,BRA,2011,74.05
+Brazil,BRA,2012,74.33
+Brazil,BRA,2013,74.61
+Brazil,BRA,2014,74.82
+Brazil,BRA,2015,75.11
+Brazil,BRA,2016,75.08
+Brazil,BRA,2017,75.38
+Brazil,BRA,2018,75.63
+Brazil,BRA,2019,75.81
+Brazil,BRA,2020,74.51
+Brazil,BRA,2021,73.04
+Brazil,BRA,2022,74.87
+Brazil,BRA,2023,75.85
+Canada,CAN,2000,79.23
+Canada,CAN,2001,79.45
+Canada,CAN,2002,79.57
+Canada,CAN,2003,79.74
+Canada,CAN,2004,80.03
+Canada,CAN,2005,80.13
+Canada,CAN,2006,80.54
+Canada,CAN,2007,80.54
+Canada,CAN,2008,80.73
+Canada,CAN,2009,81.06
+Canada,CAN,2010,81.34
+Canada,CAN,2011,81.51
+Canada,CAN,2012,81.7
+Canada,CAN,2013,81.79
+Canada,CAN,2014,81.84
+Canada,CAN,2015,81.91
+Canada,CAN,2016,82.03
+Canada,CAN,2017,81.92
+Canada,CAN,2018,81.92
+Canada,CAN,2019,82.28
+Canada,CAN,2020,81.65
+Canada,CAN,2021,81.98
+Canada,CAN,2022,81.25
+Canada,CAN,2023,82.63
+Chad,TCD,2000,47.94
+Chad,TCD,2001,48.31
+Chad,TCD,2002,48.36
+Chad,TCD,2003,48.61
+Chad,TCD,2004,48.69
+Chad,TCD,2005,48.86
+Chad,TCD,2006,48.75
+Chad,TCD,2007,49.21
+Chad,TCD,2008,49.5
+Chad,TCD,2009,49.83
+Chad,TCD,2010,50.11
+Chad,TCD,2011,50.43
+Chad,TCD,2012,50.77
+Chad,TCD,2013,51.05
+Chad,TCD,2014,51.14
+Chad,TCD,2015,51.32
+Chad,TCD,2016,51.6
+Chad,TCD,2017,51.87
+Chad,TCD,2018,52.45
+Chad,TCD,2019,52.99
+Chad,TCD,2020,53.08
+Chad,TCD,2021,53.14
+Chad,TCD,2022,54.53
+Chad,TCD,2023,55.07
+China,CHN,2000,72.29
+China,CHN,2001,72.68
+China,CHN,2002,73.03
+China,CHN,2003,73.39
+China,CHN,2004,73.73
+China,CHN,2005,74.08
+China,CHN,2006,74.4
+China,CHN,2007,74.79
+China,CHN,2008,74.83
+China,CHN,2009,75.32
+China,CHN,2010,75.67
+China,CHN,2011,75.89
+China,CHN,2012,76.2
+China,CHN,2013,76.45
+China,CHN,2014,76.71
+China,CHN,2015,76.98
+China,CHN,2016,77.21
+China,CHN,2017,77.24
+China,CHN,2018,77.71
+China,CHN,2019,77.94
+China,CHN,2020,78.02
+China,CHN,2021,78.12
+China,CHN,2022,78.2
+China,CHN,2023,77.95
+Egypt,EGY,2000,67.33
+Egypt,EGY,2001,67.61
+Egypt,EGY,2002,67.85
+Egypt,EGY,2003,68.05
+Egypt,EGY,2004,68.21
+Egypt,EGY,2005,68.36
+Egypt,EGY,2006,68.49
+Egypt,EGY,2007,68.63
+Egypt,EGY,2008,68.76
+Egypt,EGY,2009,68.92
+Egypt,EGY,2010,69.08
+Egypt,EGY,2011,69.23
+Egypt,EGY,2012,69.46
+Egypt,EGY,2013,69.63
+Egypt,EGY,2014,69.91
+Egypt,EGY,2015,70.13
+Egypt,EGY,2016,70.44
+Egypt,EGY,2017,70.71
+Egypt,EGY,2018,70.97
+Egypt,EGY,2019,71.21
+Egypt,EGY,2020,69.79
+Egypt,EGY,2021,68.98
+Egypt,EGY,2022,71.01
+Egypt,EGY,2023,71.63
+Ethiopia,ETH,2000,50.88
+Ethiopia,ETH,2001,51.43
+Ethiopia,ETH,2002,52.09
+Ethiopia,ETH,2003,52.88
+Ethiopia,ETH,2004,53.73
+Ethiopia,ETH,2005,54.36
+Ethiopia,ETH,2006,55.4
+Ethiopia,ETH,2007,56.57
+Ethiopia,ETH,2008,57.73
+Ethiopia,ETH,2009,58.72
+Ethiopia,ETH,2010,59.71
+Ethiopia,ETH,2011,60.59
+Ethiopia,ETH,2012,61.44
+Ethiopia,ETH,2013,62.16
+Ethiopia,ETH,2014,62.93
+Ethiopia,ETH,2015,63.59
+Ethiopia,ETH,2016,64.16
+Ethiopia,ETH,2017,64.77
+Ethiopia,ETH,2018,65.26
+Ethiopia,ETH,2019,65.74
+Ethiopia,ETH,2020,65.97
+Ethiopia,ETH,2021,65.33
+Ethiopia,ETH,2022,66.9
+Ethiopia,ETH,2023,67.32
+Germany,DEU,2000,78.06
+Germany,DEU,2001,78.4
+Germany,DEU,2002,78.47
+Germany,DEU,2003,78.54
+Germany,DEU,2004,79.12
+Germany,DEU,2005,79.25
+Germany,DEU,2006,79.59
+Germany,DEU,2007,79.73
+Germany,DEU,2008,79.82
+Germany,DEU,2009,79.92
+Germany,DEU,2010,80.08
+Germany,DEU,2011,80.35
+Germany,DEU,2012,80.5
+Germany,DEU,2013,80.45
+Germany,DEU,2014,80.91
+Germany,DEU,2015,80.57
+Germany,DEU,2016,80.84
+Germany,DEU,2017,80.94
+Germany,DEU,2018,80.87
+Germany,DEU,2019,81.19
+Germany,DEU,2020,81.0
+Germany,DEU,2021,81.11
+Germany,DEU,2022,80.58
+Germany,DEU,2023,81.38
+India,IND,2000,62.75
+India,IND,2001,63.16
+India,IND,2002,63.65
+India,IND,2003,64.09
+India,IND,2004,64.48
+India,IND,2005,64.94
+India,IND,2006,65.37
+India,IND,2007,65.8
+India,IND,2008,66.25
+India,IND,2009,66.7
+India,IND,2010,67.16
+India,IND,2011,67.62
+India,IND,2012,68.08
+India,IND,2013,68.5
+India,IND,2014,68.93
+India,IND,2015,69.33
+India,IND,2016,69.71
+India,IND,2017,70.07
+India,IND,2018,70.42
+India,IND,2019,70.75
+India,IND,2020,70.16
+India,IND,2021,67.28
+India,IND,2022,71.7
+India,IND,2023,72.0
+Japan,JPN,2000,81.18
+Japan,JPN,2001,81.51
+Japan,JPN,2002,81.8
+Japan,JPN,2003,81.85
+Japan,JPN,2004,82.13
+Japan,JPN,2005,82.01
+Japan,JPN,2006,82.37
+Japan,JPN,2007,82.55
+Japan,JPN,2008,82.63
+Japan,JPN,2009,82.97
+Japan,JPN,2010,82.92
+Japan,JPN,2011,82.67
+Japan,JPN,2012,83.17
+Japan,JPN,2013,83.4
+Japan,JPN,2014,83.64
+Japan,JPN,2015,83.88
+Japan,JPN,2016,84.06
+Japan,JPN,2017,84.19
+Japan,JPN,2018,84.29
+Japan,JPN,2019,84.42
+Japan,JPN,2020,84.67
+Japan,JPN,2021,84.55
+Japan,JPN,2022,84.05
+Japan,JPN,2023,84.71
+Mexico,MEX,2000,72.56
+Mexico,MEX,2001,72.91
+Mexico,MEX,2002,73.11
+Mexico,MEX,2003,73.31
+Mexico,MEX,2004,73.43
+Mexico,MEX,2005,73.63
+Mexico,MEX,2006,73.75
+Mexico,MEX,2007,73.8
+Mexico,MEX,2008,73.69
+Mexico,MEX,2009,73.63
+Mexico,MEX,2010,73.72
+Mexico,MEX,2011,73.92
+Mexico,MEX,2012,74.13
+Mexico,MEX,2013,74.29
+Mexico,MEX,2014,74.4
+Mexico,MEX,2015,74.43
+Mexico,MEX,2016,74.38
+Mexico,MEX,2017,74.26
+Mexico,MEX,2018,74.3
+Mexico,MEX,2019,74.53
+Mexico,MEX,2020,70.45
+Mexico,MEX,2021,69.75
+Mexico,MEX,2022,73.97
+Mexico,MEX,2023,75.07
+Niger,NER,2000,49.17
+Niger,NER,2001,49.87
+Niger,NER,2002,50.64
+Niger,NER,2003,51.54
+Niger,NER,2004,52.4
+Niger,NER,2005,53.32
+Niger,NER,2006,54.22
+Niger,NER,2007,55.06
+Niger,NER,2008,55.85
+Niger,NER,2009,56.49
+Niger,NER,2010,57.08
+Niger,NER,2011,57.6
+Niger,NER,2012,57.99
+Niger,NER,2013,58.36
+Niger,NER,2014,58.69
+Niger,NER,2015,58.85
+Niger,NER,2016,59.23
+Niger,NER,2017,59.52
+Niger,NER,2018,59.76
+Niger,NER,2019,60.03
+Niger,NER,2020,59.89
+Niger,NER,2021,59.54
+Niger,NER,2022,60.4
+Niger,NER,2023,61.18
+Somalia,SOM,2000,50.75
+Somalia,SOM,2001,50.83
+Somalia,SOM,2002,50.82
+Somalia,SOM,2003,50.72
+Somalia,SOM,2004,50.68
+Somalia,SOM,2005,50.89
+Somalia,SOM,2006,50.92
+Somalia,SOM,2007,50.89
+Somalia,SOM,2008,51.46
+Somalia,SOM,2009,52.1
+Somalia,SOM,2010,48.9
+Somalia,SOM,2011,32.45
+Somalia,SOM,2012,49.14
+Somalia,SOM,2013,54.02
+Somalia,SOM,2014,54.44
+Somalia,SOM,2015,55.06
+Somalia,SOM,2016,55.28
+Somalia,SOM,2017,52.19
+Somalia,SOM,2018,54.77
+Somalia,SOM,2019,57.25
+Somalia,SOM,2020,57.09
+Somalia,SOM,2021,55.7
+Somalia,SOM,2022,53.93
+Somalia,SOM,2023,58.82
+South Africa,ZAF,2000,58.37
+South Africa,ZAF,2001,57.16
+South Africa,ZAF,2002,55.58
+South Africa,ZAF,2003,54.25
+South Africa,ZAF,2004,53.96
+South Africa,ZAF,2005,53.91
+South Africa,ZAF,2006,54.22
+South Africa,ZAF,2007,54.95
+South Africa,ZAF,2008,55.98
+South Africa,ZAF,2009,57.41
+South Africa,ZAF,2010,58.89
+South Africa,ZAF,2011,60.6
+South Africa,ZAF,2012,61.74
+South Africa,ZAF,2013,62.39
+South Africa,ZAF,2014,63.18
+South Africa,ZAF,2015,64.05
+South Africa,ZAF,2016,64.75
+South Africa,ZAF,2017,65.42
+South Africa,ZAF,2018,65.73
+South Africa,ZAF,2019,66.07
+South Africa,ZAF,2020,65.15
+South Africa,ZAF,2021,62.01
+South Africa,ZAF,2022,65.45
+South Africa,ZAF,2023,66.14
+Turkey,TUR,2000,71.93
+Turkey,TUR,2001,72.27
+Turkey,TUR,2002,72.6
+Turkey,TUR,2003,72.91
+Turkey,TUR,2004,73.22
+Turkey,TUR,2005,73.51
+Turkey,TUR,2006,73.8
+Turkey,TUR,2007,74.13
+Turkey,TUR,2008,74.38
+Turkey,TUR,2009,74.68
+Turkey,TUR,2010,74.96
+Turkey,TUR,2011,74.82
+Turkey,TUR,2012,75.55
+Turkey,TUR,2013,76.17
+Turkey,TUR,2014,76.45
+Turkey,TUR,2015,76.54
+Turkey,TUR,2016,76.59
+Turkey,TUR,2017,77.04
+Turkey,TUR,2018,77.45
+Turkey,TUR,2019,77.74
+Turkey,TUR,2020,76.53
+Turkey,TUR,2021,75.72
+Turkey,TUR,2022,77.59
+Turkey,TUR,2023,77.16
+United States,USA,2000,76.81
+United States,USA,2001,76.92
+United States,USA,2002,76.99
+United States,USA,2003,77.14
+United States,USA,2004,77.54
+United States,USA,2005,77.53
+United States,USA,2006,77.8
+United States,USA,2007,78.05
+United States,USA,2008,78.13
+United States,USA,2009,78.48
+United States,USA,2010,78.67
+United States,USA,2011,78.7
+United States,USA,2012,78.82
+United States,USA,2013,78.82
+United States,USA,2014,78.88
+United States,USA,2015,78.72
+United States,USA,2016,78.69
+United States,USA,2017,78.65
+United States,USA,2018,78.8
+United States,USA,2019,78.92
+United States,USA,2020,77.01
+United States,USA,2021,76.38
+United States,USA,2022,77.98
+United States,USA,2023,79.3
+Vietnam,VNM,2000,72.75
+Vietnam,VNM,2001,72.98
+Vietnam,VNM,2002,73.14
+Vietnam,VNM,2003,73.24
+Vietnam,VNM,2004,73.06
+Vietnam,VNM,2005,73.2
+Vietnam,VNM,2006,73.29
+Vietnam,VNM,2007,73.39
+Vietnam,VNM,2008,73.46
+Vietnam,VNM,2009,73.53
+Vietnam,VNM,2010,73.61
+Vietnam,VNM,2011,73.71
+Vietnam,VNM,2012,73.76
+Vietnam,VNM,2013,73.82
+Vietnam,VNM,2014,73.89
+Vietnam,VNM,2015,73.96
+Vietnam,VNM,2016,73.98
+Vietnam,VNM,2017,74.03
+Vietnam,VNM,2018,74.1
+Vietnam,VNM,2019,74.21
+Vietnam,VNM,2020,75.38
+Vietnam,VNM,2021,74.14
+Vietnam,VNM,2022,74.5
+Vietnam,VNM,2023,74.59
+World,OWID_WRL,2000,66.43
+World,OWID_WRL,2001,66.75
+World,OWID_WRL,2002,67.07
+World,OWID_WRL,2003,67.4
+World,OWID_WRL,2004,67.74
+World,OWID_WRL,2005,68.14
+World,OWID_WRL,2006,68.61
+World,OWID_WRL,2007,69.03
+World,OWID_WRL,2008,69.3
+World,OWID_WRL,2009,69.68
+World,OWID_WRL,2010,70.09
+World,OWID_WRL,2011,70.4
+World,OWID_WRL,2012,70.82
+World,OWID_WRL,2013,71.14
+World,OWID_WRL,2014,71.4
+World,OWID_WRL,2015,71.61
+World,OWID_WRL,2016,71.88
+World,OWID_WRL,2017,72.07
+World,OWID_WRL,2018,72.39
+World,OWID_WRL,2019,72.61
+World,OWID_WRL,2020,71.92
+World,OWID_WRL,2021,70.86
+World,OWID_WRL,2022,72.64
+World,OWID_WRL,2023,73.17
+Zimbabwe,ZWE,2000,46.03
+Zimbabwe,ZWE,2001,44.52
+Zimbabwe,ZWE,2002,45.94
+Zimbabwe,ZWE,2003,45.37
+Zimbabwe,ZWE,2004,46.04
+Zimbabwe,ZWE,2005,46.57
+Zimbabwe,ZWE,2006,47.06
+Zimbabwe,ZWE,2007,47.58
+Zimbabwe,ZWE,2008,48.46
+Zimbabwe,ZWE,2009,49.75
+Zimbabwe,ZWE,2010,51.93
+Zimbabwe,ZWE,2011,53.91
+Zimbabwe,ZWE,2012,55.39
+Zimbabwe,ZWE,2013,56.84
+Zimbabwe,ZWE,2014,58.11
+Zimbabwe,ZWE,2015,58.99
+Zimbabwe,ZWE,2016,59.76
+Zimbabwe,ZWE,2017,60.26
+Zimbabwe,ZWE,2018,60.91
+Zimbabwe,ZWE,2019,61.06
+Zimbabwe,ZWE,2020,61.53
+Zimbabwe,ZWE,2021,60.13
+Zimbabwe,ZWE,2022,62.36
+Zimbabwe,ZWE,2023,62.77
+High income,high_income,2000,78.98
+High income,high_income,2001,79.26
+High income,high_income,2002,79.38
+High income,high_income,2003,79.54
+High income,high_income,2004,79.91
+High income,high_income,2005,80.0
+High income,high_income,2006,80.31
+High income,high_income,2007,80.42
+High income,high_income,2008,80.55
+High income,high_income,2009,80.83
+High income,high_income,2010,81.0
+High income,high_income,2011,81.07
+High income,high_income,2012,81.3
+High income,high_income,2013,81.4
+High income,high_income,2014,81.56
+High income,high_income,2015,81.54
+High income,high_income,2016,81.68
+High income,high_income,2017,81.68
+High income,high_income,2018,81.83
+High income,high_income,2019,82.01
+High income,high_income,2020,81.6
+High income,high_income,2021,81.52
+High income,high_income,2022,81.33
+High income,high_income,2023,82.39
+Upper middle income,upper_middle_income,2000,68.95
+Upper middle income,upper_middle_income,2001,69.0
+Upper middle income,upper_middle_income,2002,68.94
+Upper middle income,upper_middle_income,2003,68.95
+Upper middle income,upper_middle_income,2004,69.14
+Upper middle income,upper_middle_income,2005,69.39
+Upper middle income,upper_middle_income,2006,69.69
+Upper middle income,upper_middle_income,2007,70.08
+Upper middle income,upper_middle_income,2008,70.4
+Upper middle income,upper_middle_income,2009,70.9
+Upper middle income,upper_middle_income,2010,71.4
+Upper middle income,upper_middle_income,2011,71.86
+Upper middle income,upper_middle_income,2012,72.39
+Upper middle income,upper_middle_income,2013,72.78
+Upper middle income,upper_middle_income,2014,73.12
+Upper middle income,upper_middle_income,2015,73.42
+Upper middle income,upper_middle_income,2016,73.6
+Upper middle income,upper_middle_income,2017,73.87
+Upper middle income,upper_middle_income,2018,74.16
+Upper middle income,upper_middle_income,2019,74.42
+Upper middle income,upper_middle_income,2020,72.93
+Upper middle income,upper_middle_income,2021,71.73
+Upper middle income,upper_middle_income,2022,74.02
+Upper middle income,upper_middle_income,2023,74.43
+Lower middle income,lower_middle_income,2000,62.18
+Lower middle income,lower_middle_income,2001,62.22
+Lower middle income,lower_middle_income,2002,62.83
+Lower middle income,lower_middle_income,2003,63.01
+Lower middle income,lower_middle_income,2004,63.34
+Lower middle income,lower_middle_income,2005,63.71
+Lower middle income,lower_middle_income,2006,64.05
+Lower middle income,lower_middle_income,2007,64.37
+Lower middle income,lower_middle_income,2008,64.79
+Lower middle income,lower_middle_income,2009,65.28
+Lower middle income,lower_middle_income,2010,65.96
+Lower middle income,lower_middle_income,2011,66.6
+Lower middle income,lower_middle_income,2012,67.14
+Lower middle income,lower_middle_income,2013,67.66
+Lower middle income,lower_middle_income,2014,68.17
+Lower middle income,lower_middle_income,2015,68.59
+Lower middle income,lower_middle_income,2016,68.99
+Lower middle income,lower_middle_income,2017,69.33
+Lower middle income,lower_middle_income,2018,69.7
+Lower middle income,lower_middle_income,2019,69.97
+Lower middle income,lower_middle_income,2020,69.66
+Lower middle income,lower_middle_income,2021,68.33
+Lower middle income,lower_middle_income,2022,70.77
+Lower middle income,lower_middle_income,2023,71.13
+Low income,low_income,2000,50.75
+Low income,low_income,2001,51.19
+Low income,low_income,2002,51.63
+Low income,low_income,2003,52.18
+Low income,low_income,2004,52.66
+Low income,low_income,2005,53.14
+Low income,low_income,2006,53.57
+Low income,low_income,2007,54.14
+Low income,low_income,2008,54.85
+Low income,low_income,2009,55.48
+Low income,low_income,2010,55.3
+Low income,low_income,2011,52.46
+Low income,low_income,2012,56.21
+Low income,low_income,2013,57.56
+Low income,low_income,2014,57.89
+Low income,low_income,2015,58.22
+Low income,low_income,2016,58.58
+Low income,low_income,2017,58.15
+Low income,low_income,2018,58.94
+Low income,low_income,2019,59.79
+Low income,low_income,2020,59.5
+Low income,low_income,2021,58.83
+Low income,low_income,2022,60.27
+Low income,low_income,2023,61.68
