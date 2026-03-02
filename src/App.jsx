@@ -5,6 +5,8 @@ import Chapter1Chart from "./charts/Chapter1Chart.jsx";
 import Chapter2Chart from "./charts/Chapter2Chart.jsx";
 import Chapter3Chart from "./charts/Chapter3Chart.jsx";
 import Chapter4Chart from "./charts/Chapter4Chart.jsx";
+import ParallelPlot from "./charts/ParallelPlot.jsx";
+
 
 export default function App() {
   const [countriesData, setCountriesData] = useState([]);
@@ -71,7 +73,10 @@ export default function App() {
         <h2>Chapter 4 – Old Age (Life Expectancy)</h2>
         <Chapter4Chart selectedCountry={selectedCountry.Country} />
       </div>
-
+      <div className="chapter">
+        <h2>Parallel Plot</h2>
+       <ParallelPlot selectedCountry={selectedCountry.Country} />
+      </div>
     </div>
   );
 }
