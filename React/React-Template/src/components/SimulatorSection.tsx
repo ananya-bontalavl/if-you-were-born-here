@@ -166,7 +166,7 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
 // Reusable Styles to keep the code clean
 const sectionStyle: React.CSSProperties = { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '100px 0' };
 const cardStyle: React.CSSProperties = { maxWidth: '650px', padding: '50px', backgroundColor: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(20px)', borderRadius: '40px', border: '1px solid #333', textAlign: 'center', boxShadow: '0 20px 60px rgba(0,0,0,0.8)' };
-const badgeStyle: React.CSSProperties = { color: '#6366f1', fontSize: '10px', fontWeight: 900, letterSpacing: '0.3em', textTransform: 'uppercase' };
+const badgeStyle: React.CSSProperties = { color: '#6366f1', fontSize: '20px', fontWeight: 900, letterSpacing: '0.3em', textTransform: 'uppercase' };
 const titleStyle: React.CSSProperties = { fontSize: '3.5rem', fontWeight: 900, marginBottom: '20px', letterSpacing: '-0.02em' };
 const descriptionStyle: React.CSSProperties = { color: '#888', lineHeight: 1.7, fontSize: '1.1rem', marginBottom: '30px' };
 

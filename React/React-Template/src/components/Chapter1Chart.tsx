@@ -42,12 +42,24 @@ export default function Chapter1Chart({ countryData }: Props) {
     const icons = g.selectAll("g").data(d3.range(100)).enter().append("g")
       .attr("transform", (d, i) => `translate(${(i % cols) * (iconSize + gap)}, ${Math.floor(i / cols) * (iconSize + gap)})`);
 
-    // Draw the Grid
-    icons.append("rect")
+    // --- GRID RECTANGLES ---
+    const rects = icons.append("rect")
       .attr("width", iconSize).attr("height", iconSize).attr("rx", 6)
-      .attr("fill", (d) => d < mortality ? "#ef4444" : "#22c55e") // Red if in mortality zone, Green otherwise
-      .attr("opacity", status === 'pending' ? 0.1 : 0.2);
+      .attr("fill", status === 'pending' ? "#333" : (d => d < mortality ? "#ef4444" : "#22c55e"))
+      .attr("opacity", status === 'pending' ? 0.4 : 0.2);
 
+    if (status !== 'pending') {
+      rects.transition()
+        .duration(1000)
+        .attr("fill", (d) => d < mortality ? "#ef4444" : "#22c55e")
+        .attr("opacity", (d) => {
+           if (status === 'rolling') return 0.4;
+           // If result is shown, highlight the danger zone more intensely
+           return d < mortality ? 0.8 : 0.2;
+        });
+    }
+
+    // --- HIGHLIGHT USER RESULT ---
     if (status === 'result' && userRoll !== null) {
       // Highlight the specific square the user "landed" on
       const userIndex = Math.floor(userRoll);
@@ -57,10 +69,7 @@ export default function Chapter1Chart({ countryData }: Props) {
         .attr("cx", iconSize / 2).attr("cy", iconSize / 2).attr("r", 0)
         .attr("fill", "#fff")
         .style("filter", "drop-shadow(0 0 8px #fff)")
-        .transition().duration(500).attr("r", 10);
-
-      // Light up the whole grid to show the "Danger Zone" vs "Safety Zone"
-      icons.select("rect").transition().duration(800).attr("opacity", (d) => d < mortality ? 0.8 : 0.3);
+        .transition().delay(200).duration(600).attr("r", 10);
     }
   }, [countryData, status, userRoll, mortality]);
 
@@ -73,7 +82,9 @@ export default function Chapter1Chart({ countryData }: Props) {
       )}
 
       {status === 'rolling' && (
-        <p style={{ color: '#fff', fontWeight: 900, animation: 'pulse 1s infinite' }}>ROLLING THE DICE...</p>
+        <p style={{ color: '#fff', fontWeight: 900, animation: 'pulse 1s infinite', textTransform: 'uppercase' }}>
+          Assigning your fate...
+        </p>
       )}
 
       {status === 'result' && (
@@ -85,12 +96,12 @@ export default function Chapter1Chart({ countryData }: Props) {
             {didSurvive ? "YOU SURVIVED" : "YOU DID NOT SURVIVE"}
           </h3>
           <p style={{ color: '#888', fontSize: '0.9rem', marginTop: '8px' }}>
-            Mortality Threshold: <b>{mortality}</b>
+            Mortality Rate: <b>{mortality} in 100</b>
           </p>
-          <p style={{ color: '#666', fontSize: '0.75rem', maxWidth: '300px', lineHeight: 1.4 }}>
+          <p style={{ color: '#6366f1', fontSize: '0.9rem', maxWidth: '300px', margin: '10px auto', lineHeight: 1.4 }}>
             {didSurvive 
-              ? `You are among the ${(100-mortality).toFixed(1)}% who make it to age five in ${countryData.name}.`
-              : `Statistically, you would have been one of the ${mortality} children out of 100 in ${countryData.name} who pass away before age five.`}
+              ? `You made it past the threshold. In ${countryData.name}, ${(100-mortality).toFixed(1)}% of children survive their first 5 years.`
+              : `Statistically, you fell within the ${mortality}% of children in ${countryData.name} who do not reach their 5th birthday.`}
           </p>
         </div>
       )}
@@ -101,5 +112,5 @@ export default function Chapter1Chart({ countryData }: Props) {
 const buttonStyle: React.CSSProperties = {
   padding: '14px 28px', backgroundColor: '#fff', color: '#000', border: 'none',
   borderRadius: '12px', fontWeight: 900, fontSize: '0.8rem', letterSpacing: '0.1em',
-  cursor: 'pointer', boxShadow: '0 10px 30px rgba(255,255,255,0.2)'
+  cursor: 'pointer', boxShadow: '0 10px 30px rgba(255,255,255,0.2)', transition: 'transform 0.2s'
 };
