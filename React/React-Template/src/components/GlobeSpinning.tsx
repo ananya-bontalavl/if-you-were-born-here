@@ -65,10 +65,10 @@ const GlobeSpinning = ({ winner, globeRef, setStage }: Props) => {
           ringsData={[winner]}
           ringLat="lat"
           ringLng="lng"
-          ringColor={() => winner.color}
-          ringMaxRadius={12}
-          ringPropagationSpeed={2}
-          ringRepeatPeriod={800}
+          ringColor={() => ['#ffffff', winner.color]} 
+          ringMaxRadius={15}
+          ringPropagationSpeed={3}
+          ringRepeatPeriod={700}
         />
       </div>
 
