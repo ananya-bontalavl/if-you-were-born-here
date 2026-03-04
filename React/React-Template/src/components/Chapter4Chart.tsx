@@ -11,14 +11,13 @@ export default function Chapter4Chart({ countryData }: Props) {
   const [isCounting, setIsCounting] = useState(false);
   const [completed, setCompleted] = useState(false);
 
-  // Fallback to 65 if data is missing
   const targetLife = countryData.life || 65; 
   const countryName = countryData.name || "Selected Country";
 
   const handleClaimTime = () => {
     setIsCounting(true);
     let start = 0;
-    const duration = 2000; // 2 seconds animation
+    const duration = 2000;
     const increment = targetLife / (duration / 16);
 
     const timer = setInterval(() => {
@@ -50,10 +49,9 @@ export default function Chapter4Chart({ countryData }: Props) {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Mock trend data based on the country's current life expectancy
     const data = Array.from({ length: 24 }, (_, i) => ({
       year: 2000 + i,
-      value: targetLife - (5 - i * 0.2) // Simple upward trend
+      value: targetLife - (5 - i * 0.2)
     }));
 
     const x = d3.scaleLinear().domain([2000, 2023]).range([0, width]);

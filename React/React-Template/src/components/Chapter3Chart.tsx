@@ -10,8 +10,6 @@ export default function Chapter3Chart({ countryData }: Props) {
   const [stability, setStability] = useState(0);
   const [clicks, setClicks] = useState(0);
   const [isWorking, setIsWorking] = useState(false);
-
-  // Using 'gni' key to match your COUNTRY_DATA
   const gni = countryData.gni || 5000;
   
   const getDescription = (val: number) => {
@@ -22,14 +20,10 @@ export default function Chapter3Chart({ countryData }: Props) {
     return "Financial anxiety is largely removed. You are in the top tier of global earners with access to high-end security.";
   };
 
-  // Calibrated for 4-5 clicks: 
-  // High income (~70k) gets ~25% per click (4 clicks)
-  // Low income (~1k) gets ~20% per click (5 clicks)
   const earningsPerClick = 20 + (Math.min(gni, 100000) / 100000) * 10; 
 
   const handleWork = () => {
     setIsWorking(true);
-    // Short delay for "feel"
     setTimeout(() => {
       setClicks(prev => prev + 1);
       setStability(prev => Math.min(100, prev + earningsPerClick));

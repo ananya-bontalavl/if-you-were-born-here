@@ -4,6 +4,7 @@ import Chapter1Chart from './Chapter1Chart';
 import Chapter2Chart from './Chapter2Chart';
 import Chapter3Chart from './Chapter3Chart';
 import Chapter4Chart from './Chapter4Chart';
+import ParallelPlot from './ParallelPlot';
 import { COUNTRIES } from '../data/countries';
 
 interface Props {
@@ -122,7 +123,40 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
 
         {/* CONCLUSION CHART */}
         <section id="conclusion" style={sectionStyle}>
-          <FinalComparisonChart winner={winner} />
+          <div style={{
+            ...cardStyle,
+            maxWidth: '900px',
+            border: `1px solid ${winner?.color}33`,
+            background: `linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 100%)`
+          }}>
+            <span style={{
+              ...badgeStyle,
+              background: 'linear-gradient(90deg, #fff, #666)',
+              color: '#000'
+            }}>Conclusion</span>
+            
+            <h2 style={titleStyle}>The Life Simulator</h2>
+            <p style={{ ...descriptionStyle, marginBottom: '40px' }}>
+              Your life was not a single event, but a sequence of probabilities. 
+              Below is the total map of your existence in {winner.name}, tracing how survival, 
+              knowledge, and labor intersected to define your time on Earth.
+            </p>
+
+            <ParallelPlot selectedCountry={winner} />
+            
+            <div style={{ marginTop: '60px', paddingTop: '40px', borderTop: '1px solid #222', textAlign: 'center' }}>
+              <button 
+                onClick={() => window.location.reload()}
+                style={{
+                  background: 'none', border: '1px solid #444', color: '#888',
+                  padding: '12px 24px', borderRadius: '12px', cursor: 'pointer',
+                  fontSize: '11px', fontWeight: 800, textTransform: 'uppercase'
+                }}
+              >
+                Rebirth (New Simulation)
+              </button>
+            </div>
+          </div>
         </section>
       </div>
     </div>

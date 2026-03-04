@@ -50,7 +50,6 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
   useEffect(() => {
     if (!ladderRef.current || !rankingRef.current) return;
 
-    // --- LADDER D3 (LEFT SIDE) ---
     const svgL = d3.select(ladderRef.current);
     svgL.selectAll("*").remove();
     
@@ -73,7 +72,6 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .attr("text-anchor", "end").style("fill", "#666").style("font-size", "11px")
       .text(d => d.label);
 
-    // --- RANKING D3 (RIGHT SIDE) ---
     const svgR = d3.select(rankingRef.current);
     svgR.selectAll("*").remove();
     
