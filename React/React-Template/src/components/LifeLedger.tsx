@@ -10,6 +10,7 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
   // Safe fallbacks in case data is loading
   const mortality = winner?.mortality || 0;
   const survivalRate = (100 - mortality).toFixed(1);
+  const gniValue = winner?.gni || winner?.["GNI adjusted with PPP(2000-2023)"] || 0;
 
   return (
     <div style={{
@@ -93,7 +94,7 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
             </p>
           </div>
           <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 3 ? '#eab308' : '#555' }}>
-            {activeChapter >= 3 ? 'Evaluating...' : 'Locked'}
+            {activeChapter >= 3 ? `$${Math.round(gniValue).toLocaleString()}` : 'Locked'}
           </p>
         </div>
 

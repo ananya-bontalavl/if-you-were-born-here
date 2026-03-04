@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import FinalComparisonChart from './FinalComparisonChart';
 import Chapter1Chart from './Chapter1Chart'; 
 import Chapter2Chart from './Chapter2Chart';
+import Chapter3Chart from './Chapter3Chart';
 import { COUNTRIES } from '../data/countries';
 
 interface Props {
@@ -105,6 +106,7 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
             <p style={descriptionStyle}>
               The economy you enter dictates the value of your labor. In {winner.name}, your earning potential and quality of life are bound by macroscopic market conditions.
             </p>
+            <Chapter3Chart countryData={winner} />
           </div>
         </section>
 
