@@ -69,13 +69,13 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
           transition: 'all 0.5s ease 0.1s'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <GraduationCap size={16} color={activeChapter >= 2 ? '#3b82f6' : '#555'} />
+            <GraduationCap size={16} color={activeChapter >= 2 ? winner?.color : '#555'} />
             <p style={{ fontSize: '11px', color: activeChapter >= 2 ? '#ddd' : '#555', fontWeight: 800, textTransform: 'uppercase', margin: 0 }}>
               Education
             </p>
           </div>
-          <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 2 ? '#3b82f6' : '#555' }}>
-            {activeChapter >= 2 ? 'Evaluating...' : 'Locked'}
+          <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 2 ? winner?.color : '#555' }}>
+            {activeChapter >= 2 ? `${winner?.edu}%` : 'Locked'}
           </p>
         </div>
 

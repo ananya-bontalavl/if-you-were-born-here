@@ -1,93 +1,105 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 
 interface Props {
-  // We expect the 'winner' object from SimulatorSection
   countryData: {
     name: string;
-    mortality?: number;
-    color?: string;
-    [key: string]: any; 
+    mortality: number;
+    color: string;
   };
 }
 
 export default function Chapter1Chart({ countryData }: Props) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [status, setStatus] = useState<'pending' | 'rolling' | 'result'>('pending');
+  const [userRoll, setUserRoll] = useState<number | null>(null);
+
+  const mortality = countryData.mortality || 0;
+  // If the roll is LESS than mortality, the user "dies" (statistically)
+  const didSurvive = userRoll !== null ? userRoll >= mortality : true;
+
+  const handleTest = () => {
+    setStatus('rolling');
+    // Generate a random number between 0 and 100
+    const roll = parseFloat((Math.random() * 100).toFixed(2));
+    
+    setTimeout(() => {
+      setUserRoll(roll);
+      setStatus('result');
+    }, 1500);
+  };
 
   useEffect(() => {
-    if (!svgRef.current || !countryData) return;
+    if (!containerRef.current) return;
+    d3.select(containerRef.current).selectAll("svg").remove();
 
-    // Grab mortality. If it's missing, default to 5.0 so the chart doesn't crash
-    const mortality = Number(countryData.mortality) || 5.0;
-    
-    const fullFaded = Math.floor(mortality);
-    const partial = mortality - fullFaded;
+    const width = 340, height = 340, cols = 10, iconSize = 26, gap = 6;
+    const svg = d3.select(containerRef.current).append("svg")
+      .attr("width", width).attr("height", height).style("overflow", "visible");
 
-    const cols = 10;
-    const iconSize = 25;
-    const gap = 6;
+    const g = svg.append("g").attr("transform", "translate(5,5)");
 
-    const svg = d3.select(svgRef.current);
-    
-    // Clear previous renders
-    svg.selectAll("*").remove();
+    const icons = g.selectAll("g").data(d3.range(100)).enter().append("g")
+      .attr("transform", (d, i) => `translate(${(i % cols) * (iconSize + gap)}, ${Math.floor(i / cols) * (iconSize + gap)})`);
 
-    const g = svg.append("g").attr("transform", "translate(20,20)");
-
-    const icons = g.selectAll(".icon")
-      .data(d3.range(100))
-      .enter()
-      .append("g")
-      .attr("class", "icon")
-      .attr("transform", (d, i) => {
-        const x = (i % cols) * (iconSize + gap);
-        const y = Math.floor(i / cols) * (iconSize + gap);
-        return `translate(${x},${y})`;
-      });
-
-    // base = survivor (Green)
+    // Draw the Grid
     icons.append("rect")
-      .attr("width", iconSize)
-      .attr("height", iconSize)
-      .attr("rx", 4)
-      .attr("fill", "#4caf50");
+      .attr("width", iconSize).attr("height", iconSize).attr("rx", 6)
+      .attr("fill", (d) => d < mortality ? "#ef4444" : "#22c55e") // Red if in mortality zone, Green otherwise
+      .attr("opacity", status === 'pending' ? 0.1 : 0.2);
 
-    // overlay = mortality (Red)
-    const overlay = icons.append("rect")
-      .attr("width", (d, i) => i < fullFaded ? iconSize : i === fullFaded ? iconSize * partial : 0)
-      .attr("height", iconSize)
-      .attr("rx", 4)
-      .attr("fill", "#d9534f")
-      .attr("opacity", 0);
+    if (status === 'result' && userRoll !== null) {
+      // Highlight the specific square the user "landed" on
+      const userIndex = Math.floor(userRoll);
+      
+      icons.filter((d) => d === userIndex)
+        .append("circle")
+        .attr("cx", iconSize / 2).attr("cy", iconSize / 2).attr("r", 0)
+        .attr("fill", "#fff")
+        .style("filter", "drop-shadow(0 0 8px #fff)")
+        .transition().duration(500).attr("r", 10);
 
-    // animate full red squares
-    overlay.filter((d, i) => i < fullFaded)
-      .transition().delay((d, i) => i * 40).duration(500)
-      .attr("opacity", 0.95);
-
-    // animate partial square
-    if (partial > 0) {
-      overlay.filter((d, i) => i === fullFaded)
-        .transition().delay(fullFaded * 40).duration(500)
-        .attr("opacity", 0.95);
+      // Light up the whole grid to show the "Danger Zone" vs "Safety Zone"
+      icons.select("rect").transition().duration(800).attr("opacity", (d) => d < mortality ? 0.8 : 0.3);
     }
-
-    // Update the paragraph text below
-    if (textRef.current) {
-      textRef.current.innerText = `Out of 100 children in ${countryData.name}, about ${mortality.toFixed(1)} do not survive past age 5.`;
-    }
-
-  }, [countryData]);
+  }, [countryData, status, userRoll, mortality]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      {/* By explicitly writing <svg> here, React forces the browser to reserve a 350x350 box. 
-        This stops D3 from collapsing to 0 pixels!
-      */}
-      <svg ref={svgRef} width="350" height="350" style={{ overflow: "visible" }}></svg>
-      
-      <p ref={textRef} style={{ marginTop: '20px', color: '#fff', fontSize: '1.2rem', fontWeight: 600, textAlign: 'center' }}></p>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
+      <div ref={containerRef} style={{ padding: '15px', background: 'rgba(255,255,255,0.03)', borderRadius: '24px' }} />
+
+      {status === 'pending' && (
+        <button onClick={handleTest} style={buttonStyle}>TEST SURVIVAL ODDS</button>
+      )}
+
+      {status === 'rolling' && (
+        <p style={{ color: '#fff', fontWeight: 900, animation: 'pulse 1s infinite' }}>ROLLING THE DICE...</p>
+      )}
+
+      {status === 'result' && (
+        <div style={{ textAlign: 'center', animation: 'fadeIn 0.5s ease' }}>
+          <h3 style={{ 
+            fontSize: '2rem', fontWeight: 900, margin: 0, 
+            color: didSurvive ? '#22c55e' : '#ef4444' 
+          }}>
+            {didSurvive ? "YOU SURVIVED" : "YOU DID NOT SURVIVE"}
+          </h3>
+          <p style={{ color: '#888', fontSize: '0.9rem', marginTop: '8px' }}>
+            Mortality Threshold: <b>{mortality}</b>
+          </p>
+          <p style={{ color: '#666', fontSize: '0.75rem', maxWidth: '300px', lineHeight: 1.4 }}>
+            {didSurvive 
+              ? `You are among the ${(100-mortality).toFixed(1)}% who make it to age five in ${countryData.name}.`
+              : `Statistically, you would have been one of the ${mortality} children out of 100 in ${countryData.name} who pass away before age five.`}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
+
+const buttonStyle: React.CSSProperties = {
+  padding: '14px 28px', backgroundColor: '#fff', color: '#000', border: 'none',
+  borderRadius: '12px', fontWeight: 900, fontSize: '0.8rem', letterSpacing: '0.1em',
+  cursor: 'pointer', boxShadow: '0 10px 30px rgba(255,255,255,0.2)'
+};
