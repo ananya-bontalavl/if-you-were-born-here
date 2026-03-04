@@ -112,7 +112,7 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
             </p>
           </div>
           <p style={{ fontSize: '12px', fontWeight: 900, margin: 0, color: activeChapter >= 4 ? '#a855f7' : '#555' }}>
-            {activeChapter >= 4 ? 'Evaluating...' : 'Locked'}
+            {activeChapter >= 4 ? `${winner?.life || winner?.["Life Expectancy"]} Years` : 'Locked'}
           </p>
         </div>
       </div>

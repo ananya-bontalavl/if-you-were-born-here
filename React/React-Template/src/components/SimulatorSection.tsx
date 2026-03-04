@@ -3,6 +3,7 @@ import FinalComparisonChart from './FinalComparisonChart';
 import Chapter1Chart from './Chapter1Chart'; 
 import Chapter2Chart from './Chapter2Chart';
 import Chapter3Chart from './Chapter3Chart';
+import Chapter4Chart from './Chapter4Chart';
 import { COUNTRIES } from '../data/countries';
 
 interface Props {
@@ -114,10 +115,8 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
         <section id="chapter-4" ref={chapter4Ref} style={sectionStyle}>
           <div style={cardStyle}>
             <span style={badgeStyle}>Chapter 4</span>
-            <h2 style={titleStyle}>Final Stage</h2>
-            <p style={descriptionStyle}>
-              The final metric of the lottery is time. Life expectancy in {winner.name} reflects a lifetime of accumulated healthcare, safety, and systemic conditions.
-            </p>
+            <h2 style={titleStyle}>The Final Horizon</h2>
+              <Chapter4Chart countryData={winner} />
           </div>
         </section>
 
