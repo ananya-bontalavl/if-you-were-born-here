@@ -37,38 +37,66 @@ export default function Chapter3Chart({ countryData }: Props) {
     const svgElement = d3.select(stackRef.current);
     svgElement.selectAll("*").remove();
 
-    const width = 450;
-    const height = 80;
-    const barHeight = 14;
-    const gap = 4;
+    const width = 460;
+    const height = 110;
+    const barHeight = 24;
+    const gap = 6;
 
-    const svg = svgElement.append("svg")
+    const svg = svgElement
+      .append("svg")
       .attr("width", "100%")
-      .attr("viewBox", `0 0 ${width} ${height}`)
-      .append("g")
-      .attr("transform", "translate(10, 40)");
+      .attr("viewBox", `0 0 ${width} ${height}`);
 
     const segments = [
-      { min: 0, max: 3000, color: "#ef4444" },
-      { min: 3000, max: 8000, color: "#f97316" },
-      { min: 8000, max: 15000, color: "#eab308" },
-      { min: 15000, max: 30000, color: "#3b82f6" },
-      { min: 30000, max: 60000, color: "#22c55e" }
+      { min: 0, max: 3000, color: "#ef4444", label: "Survival" },
+      { min: 3000, max: 8000, color: "#f97316", label: "Basic" },
+      { min: 8000, max: 15000, color: "#eab308", label: "Stable" },
+      { min: 15000, max: 30000, color: "#3b82f6", label: "Comfortable" },
+      { min: 30000, max: 60000, color: "#22c55e", label: "Wealthy" }
     ];
 
     const segmentWidth = (width - 20 - (segments.length - 1) * gap) / segments.length;
 
+    const chartGroup = svg.append("g").attr("transform", "translate(10,40)");
     segments.forEach((s, i) => {
       const xPos = i * (segmentWidth + gap);
-      
-      svg.append("rect")
+      const rx = 6;
+      chartGroup.append("rect")
         .attr("x", xPos)
         .attr("y", 0)
         .attr("width", segmentWidth)
         .attr("height", barHeight)
-        .attr("rx", 4)
         .attr("fill", s.color)
-        .attr("opacity", 0.2);
+        .attr("rx", rx)
+        .attr("ry", rx);
+
+      chartGroup.append("text")
+        .attr("x", xPos + segmentWidth / 2)
+        .attr("y", barHeight / 2)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .style("fill", "#000")
+        .style("font-weight", "700")
+        .style("font-size", "12px")
+        .text(s.label);
+    });
+
+    const dollarGroup = svg.append("g").attr("transform", "translate(10,75)");
+    const dollarValues = ["$0k", "$3k", "$8k", "$15k", "$30k", "$60k"];
+
+    dollarValues.forEach((val, i) => {
+      const xPos =
+        i < segments.length
+          ? i * (segmentWidth + gap)
+          : segments.length * (segmentWidth + gap) - gap;
+
+      dollarGroup.append("text")
+        .attr("x", xPos)
+        .attr("y", 0)
+        .attr("text-anchor", "middle")
+        .style("fill", "#666")
+        .style("font-size", "11px")
+        .text(val);
     });
 
     const getGniX = (val: number) => {
@@ -87,7 +115,7 @@ export default function Chapter3Chart({ countryData }: Props) {
 
     const gniX = getGniX(gni);
 
-    svg.append("rect")
+    chartGroup.append("rect")
       .attr("x", gniX - 2)
       .attr("y", -6)
       .attr("width", 4)
@@ -96,7 +124,7 @@ export default function Chapter3Chart({ countryData }: Props) {
       .attr("rx", 2)
       .style("filter", `drop-shadow(0 0 4px ${countryData.color})`);
 
-    svg.append("text")
+    chartGroup.append("text")
       .attr("x", gniX)
       .attr("y", -15)
       .attr("text-anchor", "middle")
