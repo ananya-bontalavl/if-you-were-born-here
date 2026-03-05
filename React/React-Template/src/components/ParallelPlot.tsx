@@ -46,7 +46,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     const lineGenerator = d3.line<any>()
       .x(d => d.x)
       .y(d => d.y)
-      .curve(d3.curveMonotoneX);
+      .curve(d3.curveLinear);
 
     const getPathData = (d: any) => dimensions.map(dim => ({
       x: x(dim.label),
@@ -56,16 +56,13 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     dimensions.forEach(dim => {
       const axisG = g.append("g").attr("transform", `translate(${x(dim.label)}, 0)`);
       
-      // Vertical line
       axisG.append("line")
         .attr("y1", 0).attr("y2", innerHeight)
         .attr("stroke", "rgba(255,255,255,0.1)");
 
-      // Ticks and numbers
       axisG.call(d3.axisLeft(yScales[dim.label]).ticks(5).tickSize(-5))
         .attr("color", "rgba(255,255,255,0.2)");
 
-      // Labels at top
       axisG.append("text")
         .attr("y", -25)
         .attr("text-anchor", "middle")
@@ -91,15 +88,17 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .attr("d", d => lineGenerator(getPathData(d)))
         .attr("fill", "none")
         .attr("stroke", d => {
-          if (d.cat === "High Income") return "#1ae263";
-          if (d.cat === "Low Income") return "#f00606";
-          return "#cdcdcd";
+         if (d.cat === "High Income") return "#5C9E7A";          
+          if (d.cat === "Upper Middle Income") return "#6F7FB2"; 
+          if (d.cat === "Lower Middle Income") return "#B89B6B"; 
+          if (d.cat === "Low Income") return "#A56B6B";          
+          return "#666666";
         })
         .attr("stroke-width", 1)
-        .attr("opacity", 0)
+        .attr("opacity", 0.35)
         .transition()
         .duration(1000)
-        .attr("opacity", 0.15);
+        .attr("opacity", 0.19);
     }
 
     if (traced) {
