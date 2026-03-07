@@ -43,36 +43,33 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
   });
 
   const handleClimb = () => {
-    if (currentStep >= maxAllowedLevel) return;
+    if (currentStep >= maxAllowedLevel) {
+      setStatus({
+        msg: "Step Failed",
+        sub: `Hurdle: ${steps[currentStep]?.hurdle || "System capacity reached"}`
+      });
+      return;
+    }
+
     setIsClimbing(true);
     setStatus({
       msg: "Processing...",
       sub: `Attempting ${steps[currentStep].label}`
     });
 
-    const roll = Math.random() * 100;
-    const success = roll < eduValue + 5;
-
     setTimeout(() => {
-      if (success) {
-        const nextLevel = currentStep + 1;
-        setCurrentStep(nextLevel);
-        if (nextLevel >= maxAllowedLevel) {
-          setHasGraduated(true);
-          setStatus({
-            msg: graduationMessages[maxAllowedLevel],
-            sub: `In ${countryData.name}, this reflects national attainment levels.`
-          });
-        } else {
-          setStatus({
-            msg: `Completed ${steps[currentStep].label}`,
-            sub: `Next: ${steps[nextLevel].label}`
-          });
-        }
+      const nextLevel = currentStep + 1;
+      setCurrentStep(nextLevel);
+      if (nextLevel >= maxAllowedLevel) {
+        setHasGraduated(true);
+        setStatus({
+          msg: graduationMessages[maxAllowedLevel],
+          sub: `In ${countryData.name}, this reflects national attainment levels.`
+        });
       } else {
         setStatus({
-          msg: "Step Failed",
-          sub: `Hurdle: ${steps[currentStep].hurdle}`
+          msg: `Completed ${steps[currentStep].label}`,
+          sub: `Next: ${steps[nextLevel].label}`
         });
       }
       setIsClimbing(false);

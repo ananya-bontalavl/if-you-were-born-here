@@ -23,7 +23,62 @@ export const COUNTRY_DATA = [
   { name: "Somalia", lat: 5.1521, lng: 46.1996, cat: "Low Income", mortality: 16.07, gni: 1005.42, edu: 4.3607, life: 52.05 }
 ];
 
-export const COUNTRIES = COUNTRY_DATA.map((c, i) => ({
-  ...c,
-  color: `hsl(${(i * 360) / 20}, 75%, 55%)`,
-}));
+const BASE_COLORS: Record<string, string> = {
+  "High Income": "#36BBA7",       
+  "Upper Middle Income": "#1e90ff",
+  "Lower Middle Income": "#FF692A",
+  "Low Income": "#ff3f81"          
+};
+
+function hexToHSL(H: string) {
+    let r = 0, g = 0, b = 0;
+    if (H.length === 7) {
+        r = parseInt(H.substring(1,3),16)/255;
+        g = parseInt(H.substring(3,5),16)/255;
+        b = parseInt(H.substring(5,7),16)/255;
+    }
+    const max = Math.max(r,g,b), min = Math.min(r,g,b);
+    let h = 0, s = 0, l = (max+min)/2;
+
+    if(max != min){
+        const d = max-min;
+        s = l > 0.5 ? d/(2-max-min) : d/(max+min);
+        switch(max){
+            case r: h = (g-b)/d + (g<b?6:0); break;
+            case g: h = (b-r)/d + 2; break;
+            case b: h = (r-g)/d + 4; break;
+        }
+        h /= 6;
+    }
+    return {h: h*360, s: s*100, l: l*100};
+}
+
+function hslToString(h: number, s: number, l: number) {
+    return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+function generateQuadrantColors(countries: any[], baseColor: string) {
+    const hsl = hexToHSL(baseColor);
+    return countries.map((c, i) => {
+        const step = (i / (countries.length - 1)) * 20; 
+        const l = Math.min(100, hsl.l + step); 
+        return { ...c, color: hslToString(hsl.h, hsl.s, l) };
+    });
+}
+
+function groupByIncome(data: any[]) {
+    const map: Record<string, any[]> = {};
+    data.forEach(c => {
+        if(!map[c.cat]) map[c.cat] = [];
+        map[c.cat].push(c);
+    });
+    return map;
+}
+
+const grouped = groupByIncome(COUNTRY_DATA);
+export const COUNTRIES = [
+    ...generateQuadrantColors(grouped["High Income"], BASE_COLORS["High Income"]),
+    ...generateQuadrantColors(grouped["Upper Middle Income"], BASE_COLORS["Upper Middle Income"]),
+    ...generateQuadrantColors(grouped["Lower Middle Income"], BASE_COLORS["Lower Middle Income"]),
+    ...generateQuadrantColors(grouped["Low Income"], BASE_COLORS["Low Income"])
+];

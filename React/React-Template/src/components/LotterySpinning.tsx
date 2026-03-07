@@ -1,14 +1,14 @@
 import React from 'react';
+import { COUNTRIES } from '../data/countries';
 
 interface Props {
   stage: 'welcome' | 'spinning' | 'reveal' | 'simulator';
   rotation: number;
   setStage: any;
   handleSpin: () => void;
-  COUNTRIES: any[];
 }
 
-const LotterySpinning = ({ stage, rotation, setStage, handleSpin, COUNTRIES }: Props) => (
+const LotterySpinning = ({ stage, rotation, setStage, handleSpin }: Props) => (
   <>
     {(stage === 'welcome' || stage === 'spinning' || stage === 'reveal') && (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
@@ -25,7 +25,7 @@ const LotterySpinning = ({ stage, rotation, setStage, handleSpin, COUNTRIES }: P
               onClick={() => setStage('spinning')}
               style={{
                 marginTop: '4rem', padding: '1.4rem 4.5rem', fontSize: '1.5rem', fontWeight: 900, 
-                backgroundColor: '#fff', color: '#000', borderRadius: '100px',
+                backgroundColor: '#6366f1', color: '#fff', borderRadius: '100px',
                 border: 'none', cursor: 'pointer', transition: '0.3s transform',
                 boxShadow: '0 0 40px rgba(99,102,241,0.4)'
               }}

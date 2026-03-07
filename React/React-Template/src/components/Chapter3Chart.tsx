@@ -158,7 +158,7 @@ export default function Chapter3Chart({ countryData }: Props) {
           ))}
         </div>
 
-        <p style={{ margin: '0 0 20px 0', fontSize: '14px', color: '#ccc', lineHeight: 1.6, minHeight: '60px' }}>
+        <p style={{ margin: '0 0 20px 0', fontSize: '14px', color: countryData.color, lineHeight: 1.6, minHeight: '60px' }}>
           <strong>{clicks === 1 ? "CHILDHOOD: " : clicks === 2 ? "PRIME YEARS: " : clicks === 3 ? "LATER LIFE: " : ""}</strong>
           {getDescription(currentGni)}
         </p>
