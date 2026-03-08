@@ -25,9 +25,8 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     svg.selectAll("*").remove();
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
-    //  Mortality (0-12), Edu (0-120), GNI (0-80k), Life (40-90)
     const dimensions = [
-      { key: "mortality", label: "Mortality", domain: [12, 0] }, // 0 is top
+      { key: "mortality", label: "Mortality", domain: [12, 0] },
       { key: "edu", label: "Education", domain: [0, 120] },
       { key: "gni", label: "Income", domain: [0, 80000] },
       { key: "life", label: "Longevity", domain: [45, 90] }
@@ -58,15 +57,15 @@ export default function ParallelPlot({ selectedCountry }: Props) {
       
       axisG.append("line")
         .attr("y1", 0).attr("y2", innerHeight)
-        .attr("stroke", "rgba(255,255,255,0.1)");
+        .attr("stroke", "rgba(255,255,255,0.15)");
 
       axisG.call(d3.axisLeft(yScales[dim.label]).ticks(5).tickSize(-5))
-        .attr("color", "rgba(255,255,255,0.2)");
+        .attr("color", "rgba(255,255,255,0.3)");
 
       axisG.append("text")
         .attr("y", -25)
         .attr("text-anchor", "middle")
-        .style("fill", "#888")
+        .style("fill", "#aaa")
         .style("font-size", "10px")
         .style("font-weight", "900")
         .style("text-transform", "uppercase")
@@ -88,17 +87,17 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .attr("d", d => lineGenerator(getPathData(d)))
         .attr("fill", "none")
         .attr("stroke", d => {
-         if (d.cat === "High Income") return "#5C9E7A";          
+          if (d.cat === "High Income") return "#5C9E7A";          
           if (d.cat === "Upper Middle Income") return "#6F7FB2"; 
           if (d.cat === "Lower Middle Income") return "#B89B6B"; 
           if (d.cat === "Low Income") return "#A56B6B";          
-          return "#666666";
+          return "#888888";
         })
-        .attr("stroke-width", 1)
-        .attr("opacity", 0.35)
+        .attr("stroke-width", 2.5)       // ← was 1
+        .attr("opacity", 0)
         .transition()
         .duration(1000)
-        .attr("opacity", 0.19);
+        .attr("opacity", 0.6);           // ← was 0.19
     }
 
     if (traced) {
@@ -119,7 +118,6 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .ease(d3.easeCubicInOut)
         .attr("stroke-dashoffset", 0);
 
-      // Name Label
       g.append("text")
         .attr("x", innerWidth + 15)
         .attr("y", yScales["Longevity"](selectedCountry.life))
@@ -182,7 +180,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         </button>
       ) : (
         <p style={{ marginTop: '20px', color: '#555', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
-          {showGlobal ? "Global Context Revealed" : "Analyzing 20 major trajectories (5s)..."}
+          {showGlobal ? "Global Context Revealed" : "Analyzing trajectories..."}
         </p>
       )}
     </div>

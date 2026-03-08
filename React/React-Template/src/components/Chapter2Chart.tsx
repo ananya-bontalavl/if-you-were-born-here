@@ -133,12 +133,18 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
     const total = ranked.length;
 
     if (rankPosition <= total * 0.3) {
-      setRankMessage("Your country is among the global leaders in education. Continued innovation will sustain this advantage.");
-    } else if (rankPosition <= total * 0.7) {
-      setRankMessage("Your country sits in the middle tier. Strategic reforms could significantly improve its ranking.");
-    } else {
-      setRankMessage("Your country is trailing behind peers. Strong investment in education policy could shift its global standing.");
-    }
+  setRankMessage(
+    "Your country ranks near the top among countries in the same income group, indicating relatively stronger educational attainment for its economic context."
+  );
+} else if (rankPosition <= total * 0.7) {
+  setRankMessage(
+    "Your country sits around the middle of its income group. Improvements in education access or quality could help it move higher within similar economies."
+  );
+} else {
+  setRankMessage(
+    "Your country ranks toward the lower end of its income group, suggesting educational outcomes lag behind countries with similar economic resources."
+  );
+}
 
     const width = 460;
     const height = 320;

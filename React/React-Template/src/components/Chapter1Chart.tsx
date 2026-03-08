@@ -15,12 +15,10 @@ export default function Chapter1Chart({ countryData }: Props) {
   const [userRoll, setUserRoll] = useState<number | null>(null);
 
   const mortality = countryData.mortality || 0;
-  // If the roll is LESS than mortality, the user "dies" (statistically)
   const didSurvive = userRoll !== null ? userRoll >= mortality : true;
 
   const handleTest = () => {
     setStatus('rolling');
-    // Generate a random number between 0 and 100
     const roll = parseFloat((Math.random() * 100).toFixed(2));
     
     setTimeout(() => {
@@ -42,7 +40,6 @@ export default function Chapter1Chart({ countryData }: Props) {
     const icons = g.selectAll("g").data(d3.range(100)).enter().append("g")
       .attr("transform", (d, i) => `translate(${(i % cols) * (iconSize + gap)}, ${Math.floor(i / cols) * (iconSize + gap)})`);
 
-    // --- GRID RECTANGLES ---
     const rects = icons.append("rect")
       .attr("width", iconSize).attr("height", iconSize).attr("rx", 6)
       .attr("fill", status === 'pending' ? "#333" : (d => d < mortality ? "#ef4444" : "#22c55e"))
@@ -54,14 +51,11 @@ export default function Chapter1Chart({ countryData }: Props) {
         .attr("fill", (d) => d < mortality ? "#ef4444" : "#22c55e")
         .attr("opacity", (d) => {
            if (status === 'rolling') return 0.4;
-           // If result is shown, highlight the danger zone more intensely
            return d < mortality ? 0.8 : 0.2;
         });
     }
 
-    // --- HIGHLIGHT USER RESULT ---
     if (status === 'result' && userRoll !== null) {
-      // Highlight the specific square the user "landed" on
       const userIndex = Math.floor(userRoll);
       
       icons.filter((d) => d === userIndex)
@@ -95,10 +89,17 @@ export default function Chapter1Chart({ countryData }: Props) {
           }}>
             {didSurvive ? "YOU SURVIVED" : "YOU DID NOT SURVIVE"}
           </h3>
-          <p style={{ color: '#888', fontSize: '0.9rem', marginTop: '8px' }}>
+          <p style={{ color: '#888', fontSize: '1rem', marginTop: '8px' }}>
             Mortality Rate: <b>{mortality} in 100</b>
           </p>
-          <p style={{ color: '#6366f1', fontSize: '0.9rem', maxWidth: '300px', margin: '10px auto', lineHeight: 1.4 }}>
+          <p style={{ 
+            color: '#6366f1', 
+            fontSize: '1.3rem',        
+            fontWeight: 700,          
+            maxWidth: '500px', 
+            margin: '10px auto', 
+            lineHeight: 1.5            
+          }}>
             {didSurvive 
               ? `You made it past the threshold. In ${countryData.name}, ${(100-mortality).toFixed(1)}% of children survive their first 5 years.`
               : `Statistically, you fell within the ${mortality}% of children in ${countryData.name} who do not reach their 5th birthday.`}

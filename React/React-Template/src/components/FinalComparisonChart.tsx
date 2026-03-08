@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// 1. STRICT TYPE DEFINITIONS
 interface Props {
   winner: any;
 }
@@ -15,7 +14,6 @@ interface CountryData {
   life: number;
 }
 
-// 2. MOCK DATASET
 const CHART_DATA: CountryData[] = [
   { name: "United States", cat: "High Income", color: "#0984e3", mortality: 0.6, gni: 71767, edu: 99, life: 77.8 },
   { name: "Germany", cat: "High Income", color: "#0984e3", mortality: 0.3, gni: 64644, edu: 100, life: 81.0 },
@@ -38,23 +36,21 @@ const FinalComparisonChart: React.FC<Props> = ({ winner }) => {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
 
   const toggleTier = (tier: string) => {
-    setActiveTiers(prev => 
+    setActiveTiers(prev =>
       prev.includes(tier) ? prev.filter(t => t !== tier) : [...prev, tier]
     );
   };
 
-  // SVG SCALING MATH
   const width = 800;
   const height = 400;
   const padding = 40;
-  
+
   const xSurv = padding;
   const xEdu = padding + (width - 2 * padding) * 0.33;
   const xGNI = padding + (width - 2 * padding) * 0.66;
   const xLife = width - padding;
 
-  // Ensure safe numbers to avoid NaN errors in SVG paths
-  const safeNumber = (val: number | undefined | null, fallback: number) => 
+  const safeNumber = (val: number | undefined | null, fallback: number) =>
     (typeof val === 'number' && !isNaN(val)) ? val : fallback;
 
   const scaleSurv = (val: number) => padding + ((safeNumber(val, 5) - 0) / (10 - 0)) * (height - 2 * padding);
@@ -66,10 +62,10 @@ const FinalComparisonChart: React.FC<Props> = ({ winner }) => {
     <div style={{
       width: '100%', maxWidth: '1000px', margin: '0 auto', padding: '40px',
       backgroundColor: 'rgba(20, 20, 25, 0.9)', borderRadius: '32px',
-      border: winner ? `1px solid ${winner.color}40` : '1px solid #333', 
+      border: winner ? `1px solid ${winner.color}40` : '1px solid #333',
       boxShadow: '0 20px 60px rgba(0,0,0,0.8)'
     }}>
-      
+
       {/* HEADER & CONTROLS */}
       <div style={{ textAlign: 'center', marginBottom: '30px' }}>
         <h2 style={{ fontSize: '2.5rem', fontWeight: 900, margin: 0, letterSpacing: '-0.02em', color: '#fff' }}>
@@ -78,37 +74,40 @@ const FinalComparisonChart: React.FC<Props> = ({ winner }) => {
         <p style={{ color: '#888', marginTop: '10px' }}>
           Compare your simulated life in <strong style={{ color: winner?.color || '#fff' }}>{winner?.name || 'your country'}</strong> against the rest of the world.
         </p>
-        
+
         <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '20px' }}>
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat}
-              onClick={() => toggleTier(cat)}
-              style={{
-                padding: '8px 16px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 700,
-                cursor: 'pointer', transition: 'all 0.2s ease', textTransform: 'uppercase',
-                backgroundColor: activeTiers.includes(cat) ? '#333' : 'transparent',
-                color: activeTiers.includes(cat) ? '#fff' : '#555',
-                border: `1px solid ${activeTiers.includes(cat) ? '#555' : '#333'}`
-              }}
-            >
-              {cat}
-            </button>
-          ))}
+          {CATEGORIES.map(cat => {
+            const catColor = CHART_DATA.find(d => d.cat === cat)?.color || '#fff';
+            return (
+              <button
+                key={cat}
+                onClick={() => toggleTier(cat)}
+                style={{
+                  padding: '8px 16px', borderRadius: '50px', fontSize: '0.8rem', fontWeight: 700,
+                  cursor: 'pointer', transition: 'all 0.2s ease', textTransform: 'uppercase',
+                  backgroundColor: activeTiers.includes(cat) ? `${catColor}22` : 'transparent',
+                  color: activeTiers.includes(cat) ? catColor : '#555',
+                  border: `1px solid ${activeTiers.includes(cat) ? catColor : '#333'}`
+                }}
+              >
+                {cat}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {/* PARALLEL COORDINATES SVG PLOT */}
       <div style={{ width: '100%', overflowX: 'auto', display: 'flex', justifyContent: 'center' }}>
         <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} style={{ overflow: 'visible' }}>
-          
-          {/* 1. DRAW POLYLINES */}
+
+          {/* 1. DRAW BACKGROUND LINES FIRST (non-winner) */}
           {CHART_DATA.map((d, i) => {
             const isWinner = winner && d.name === winner.name;
             const isHovered = d.name === hoveredCountry;
             const isVisible = activeTiers.includes(d.cat);
-            
-            if (!isVisible && !isWinner) return null;
+
+            if (!isVisible || isWinner) return null;
 
             const pathStr = `M ${xSurv} ${scaleSurv(d.mortality)} L ${xEdu} ${scaleEdu(d.edu)} L ${xGNI} ${scaleGNI(d.gni)} L ${xLife} ${scaleLife(d.life)}`;
 
@@ -117,10 +116,9 @@ const FinalComparisonChart: React.FC<Props> = ({ winner }) => {
                 key={i}
                 d={pathStr}
                 fill="none"
-                stroke={isWinner ? winner.color : d.color}
-                strokeWidth={isWinner ? 4 : (isHovered ? 3 : 1)}
-                opacity={isWinner ? 1 : (isHovered ? 0.8 : 0.2)}
-                // Replaced raw inline CSS transitions with safer React styles to prevent strict SVG errors
+                stroke={isHovered ? d.color : d.color}
+                strokeWidth={isHovered ? 3 : 2}
+                opacity={isHovered ? 0.9 : 0.55}
                 style={{ cursor: 'pointer', pointerEvents: 'stroke' }}
                 onMouseEnter={() => setHoveredCountry(d.name)}
                 onMouseLeave={() => setHoveredCountry(null)}
@@ -128,7 +126,25 @@ const FinalComparisonChart: React.FC<Props> = ({ winner }) => {
             );
           })}
 
-          {/* 2. DRAW VERTICAL AXES */}
+          {/* 2. DRAW WINNER LINE ON TOP */}
+          {winner && (() => {
+            const d = CHART_DATA.find(c => c.name === winner.name);
+            if (!d) return null;
+            const pathStr = `M ${xSurv} ${scaleSurv(d.mortality)} L ${xEdu} ${scaleEdu(d.edu)} L ${xGNI} ${scaleGNI(d.gni)} L ${xLife} ${scaleLife(d.life)}`;
+            return (
+              <path
+                key="winner"
+                d={pathStr}
+                fill="none"
+                stroke={winner.color}
+                strokeWidth={4}
+                opacity={1}
+                style={{ filter: `drop-shadow(0 0 6px ${winner.color})` }}
+              />
+            );
+          })()}
+
+          {/* 3. DRAW VERTICAL AXES */}
           {[
             { x: xSurv, label: "Mortality (per 100)", min: "10", max: "0" },
             { x: xEdu, label: "Education (%)", min: "0", max: "100" },
@@ -152,8 +168,8 @@ const FinalComparisonChart: React.FC<Props> = ({ winner }) => {
       <div style={{ marginTop: '20px', textAlign: 'center', height: '30px' }}>
         {(hoveredCountry || winner) && (
           <p style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>
-            <span style={{ color: '#888' }}>Viewing: </span> 
-            <span style={{ color: hoveredCountry ? '#fff' : (winner?.color || '#fff') }}>
+            <span style={{ color: '#888' }}>Viewing: </span>
+            <span style={{ color: hoveredCountry ? CHART_DATA.find(d => d.name === hoveredCountry)?.color || '#fff' : (winner?.color || '#fff') }}>
               {hoveredCountry || `${winner?.name} (Your Life)`}
             </span>
           </p>
