@@ -11,7 +11,7 @@ const LifeLedger = ({ winner, activeChapter }: Props) => {
   const mortality = winner?.mortality || 0;
   const survivalRate = (100 - mortality).toFixed(1);
   const gniValue = winner?.gni || winner?.["GNI adjusted with PPP(2000-2023)"] || 0;
-  const eduValue = winner?.edu || 0;
+  const eduValue = winner?.schooling || 0;
   const getEducationLabel = (years: number) => {
     if (years >= 16) return "University";
     if (years >= 12) return "High School";
