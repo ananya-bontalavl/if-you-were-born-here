@@ -4,6 +4,7 @@ import * as d3 from "d3";
 import Chapter1Chart from "./charts/Chapter1Chart.jsx";
 import Chapter2Chart from "./charts/Chapter2Chart.jsx";
 import Chapter3Chart from "./charts/Chapter3Chart.jsx";
+import Chapter3Chart2 from "./charts/Chapter3Chart2.jsx";
 import Chapter4Chart1 from "./charts/Chapter4Chart1.jsx";
 import Chapter4Chart2 from "./charts/Chapter4Chart2.jsx";
 import ParallelPlot from "./charts/ParallelPlot.jsx";
@@ -64,12 +65,16 @@ export default function App() {
       </div>
 
       <div className="chapter">
-        <h2>Chapter 3 – Adult Life (Income)</h2>
-        <Chapter3Chart
-          countryData={selectedCountry}
-          countriesData={countriesData}
-        />
-      </div>
+  <h2>Chapter 3 – Adult Life (Income)</h2>
+
+  <Chapter3Chart
+    countryData={selectedCountry}
+    countriesData={countriesData}
+  />
+
+  <Chapter3Chart2 selectedCountry={selectedCountry.Country} />
+
+</div>
       <div className="chapter">
         <h2>Chapter 4 – Old Age (Life Expectancy)</h2>
 
