@@ -17,10 +17,10 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
 
   const eduValue = countryData.edu || 0;
   const maxAllowedLevel =
-    eduValue >= 90 ? 4 :
-    eduValue >= 70 ? 3 :
-    eduValue >= 50 ? 2 :
-    eduValue >= 25 ? 1 : 0;
+    eduValue >= 16 ? 4 :
+    eduValue >= 12 ? 3 :
+    eduValue >= 8 ? 2 :
+    eduValue >= 5 ? 1 : 0;
 
   const steps = [
     { label: "Primary", hurdle: "Limited early schooling access" },
@@ -30,10 +30,10 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
   ];
 
   const graduationMessages = [
-    "Did not complete Primary Education",
-    "Graduated from Primary School",
-    "Graduated from Middle School",
-    "Graduated from High School",
+    "Did not complete Primary School",
+    "Completed Primary School",
+    "Completed Middle School",
+    "Completed High School",
     "Graduated with a University Degree"
   ];
 
@@ -45,9 +45,10 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
   const handleClimb = () => {
     if (currentStep >= maxAllowedLevel) {
       setStatus({
-        msg: "Step Failed",
+        msg: "Educational Ceiling Reached",
         sub: `Hurdle: ${steps[currentStep]?.hurdle || "System capacity reached"}`
       });
+      setHasGraduated(true); // Ensure they can see the ranking if they hit the limit
       return;
     }
 
@@ -64,7 +65,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
         setHasGraduated(true);
         setStatus({
           msg: graduationMessages[maxAllowedLevel],
-          sub: `In ${countryData.name}, this reflects national attainment levels.`
+          sub: `In ${countryData.name}, average schooling is ${eduValue.toFixed(1)} years.`
         });
       } else {
         setStatus({
@@ -203,7 +204,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .attr("y", d => y(d.name)! + y.bandwidth() / 2 + 4)
       .style("fill", "#888")
       .style("font-size", "11px")
-      .text(d => `${d.edu}`);
+      .text(d => `${d.edu} yrs`);
 
   }, [showRanking, countryData, countriesData]);
 

@@ -20,6 +20,11 @@ const LotterySpinning = ({ stage, rotation, setStage, handleSpin }: Props) => (
             </h1>
             <p style={{ color: '#666', marginTop: '1.5rem', fontSize: '1.2rem', fontWeight: 500, letterSpacing: '0.1em' }}>
               EVERY HUMAN LIFE IS A ROLL OF THE DICE
+              To be, or not to be: that is the question: whether 'tis nobler 
+                in the mind to suffer the slings and arrows of outrageous fortune, 
+                or to take arms against a sea of troubles, and by opposing end them? 
+                To die: to sleep; no more; and, by a sleep to say we end the heart-ache 
+                and the thousand natural shocks that flesh is heir to, 'tis a consummation devoutly to be wish'd. 
             </p>
             <button 
               onClick={() => setStage('spinning')}

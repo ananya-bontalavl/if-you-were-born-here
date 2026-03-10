@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import FinalComparisonChart from './FinalComparisonChart';
 import Chapter1Chart from './Chapter1Chart'; 
 import Chapter2Chart from './Chapter2Chart';
 import Chapter3Chart from './Chapter3Chart';
@@ -17,8 +16,10 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
   const chapter2Ref = useRef<HTMLDivElement>(null);
   const chapter3Ref = useRef<HTMLDivElement>(null);
   const chapter4Ref = useRef<HTMLDivElement>(null);
+  const conclusionRef = useRef<HTMLDivElement>(null);
 
   const [localChapter, setLocalChapter] = useState(1);
+  const highestChapterReached = useRef(1);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,22 +31,46 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
             if (entry.target.id === 'chapter-2') chapterNum = 2;
             if (entry.target.id === 'chapter-3') chapterNum = 3;
             if (entry.target.id === 'chapter-4') chapterNum = 4;
+            if (entry.target.id === 'conclusion') chapterNum = 5;
             
             setActiveChapter(chapterNum); 
             setLocalChapter(chapterNum);  
+            if (chapterNum > highestChapterReached.current) {
+              highestChapterReached.current = chapterNum;
+            }
           }
         });
       },
       { threshold: 0.6 } 
     );
 
-    if (chapter1Ref.current) observer.observe(chapter1Ref.current);
-    if (chapter2Ref.current) observer.observe(chapter2Ref.current);
-    if (chapter3Ref.current) observer.observe(chapter3Ref.current);
-    if (chapter4Ref.current) observer.observe(chapter4Ref.current);
+    [chapter1Ref, chapter2Ref, chapter3Ref, chapter4Ref, conclusionRef].forEach(ref => {
+      if (ref.current) observer.observe(ref.current);
+    });
 
     return () => observer.disconnect();
   }, [setActiveChapter]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY;
+      const refs = [chapter1Ref, chapter2Ref, chapter3Ref, chapter4Ref, conclusionRef];      
+      const currentChapterRef = refs[highestChapterReached.current - 1];
+      
+      if (currentChapterRef?.current) {
+        const minAllowedScroll = currentChapterRef.current.offsetTop;        
+        if (scrollPos < minAllowedScroll - 50) {
+          window.scrollTo({
+            top: minAllowedScroll,
+            behavior: 'smooth'
+          });
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -121,8 +146,7 @@ const SimulatorSection = ({ winner, setActiveChapter }: Props) => {
           </div>
         </section>
 
-        {/* CONCLUSION CHART */}
-        <section id="conclusion" style={sectionStyle}>
+        <section id="conclusion" ref={conclusionRef} style={sectionStyle}>
           <div style={{
             ...cardStyle,
             maxWidth: '900px',

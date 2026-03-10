@@ -72,15 +72,15 @@ export default function Chapter4Chart({ countryData }: Props) {
 
     if (view === "gender") {
       // --- GENDER CHART LOGIC ---
-      const data = LIFE_EXPECTANCY_DATA.filter(d => d.country === countryData.name && d.year >= 2000);
+      const data = LIFE_EXPECTANCY_DATA.filter((d) => d.country === countryData.name && d.year >= 2000);
       const y = d3.scaleLinear()
-        .domain([d3.min(data, d => Math.min(d.men, d.women))! - 2, d3.max(data, d => Math.max(d.men, d.women))! + 2])
+        .domain([d3.min(data, (d) => Math.min(d.men, d.women))! - 2, d3.max(data, (d) => Math.max(d.men, d.women))! + 2])
         .range([height, 0]);
 
       svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
       svg.append("g").call(d3.axisLeft(y));
 
-      const line = (key: "men" | "women") => d3.line<any>().x(d => x(d.year)).y(d => y(d[key]));
+      const line = (key: "men" | "women") => d3.line<any>().x((d) => x(d.year)).y((d) => y(d[key]));
 
       svg.append("path").datum(data).attr("fill", "none").attr("stroke", "#4e79a7").attr("stroke-width", 4).attr("d", line("men"));
       svg.append("path").datum(data).attr("fill", "none").attr("stroke", "#e15759").attr("stroke-width", 4).attr("d", line("women"));
@@ -90,15 +90,24 @@ export default function Chapter4Chart({ countryData }: Props) {
       svg.append("text").attr("x", x(last.year) + 10).attr("y", y(last.women)).text("Women").style("fill", "#e15759").style("font-weight", "bold");
       svg.append("text").attr("x", x(last.year) + 10).attr("y", y(last.men)).text("Men").style("fill", "#4e79a7").style("font-weight", "bold");
 
-      // Invisible circles for interaction
-      data.forEach(d => {
-        [ {k:'women', c:'#e15759'}, {k:'men', c:'#4e79a7'} ].forEach(type => {
-          svg.append("circle")
-            .attr("cx", x(d.year)).attr("cy", y(d[type.k as keyof typeof d] as number)).attr("r", 10).attr("opacity", 0).style("cursor", "pointer")
+      data.forEach((d) => {
+        [
+          { k: "women", c: "#e15759" },
+          { k: "men", c: "#4e79a7" },
+        ].forEach((type) => {
+          svg
+            .append("circle")
+            .attr("cx", x(d.year))
+            .attr("cy", y(d[type.k as keyof typeof d] as number))
+            .attr("r", 10)
+            .attr("opacity", 0)
+            .style("cursor", "pointer")
             .on("mouseenter", () => {
               tooltip.style("opacity", 1).html(`
                 <div style="font-weight:900; margin-bottom:4px; border-bottom:1px solid #ccc">${d.year}</div>
-                <div style="color:#e15759">● Women: <b>${d.women.toFixed(1)}</b></div>
+                <div style="color:#e15759">● Women: <b>${d.women.toFixed(
+                  1
+                )}</b></div>
                 <div style="color:#4e79a7">● Men: <b>${d.men.toFixed(1)}</b></div>
               `);
             })
@@ -112,25 +121,63 @@ export default function Chapter4Chart({ countryData }: Props) {
 
     } else {
       // --- PEER COUNTRIES CHART LOGIC ---
-      const data = LIFE_EXPECTANCY_YEARLY_DATA.filter(d => peerInfo.peers.includes(d.country) && d.year >= 2000);
+      const data = LIFE_EXPECTANCY_YEARLY_DATA.filter(
+        (d) => peerInfo.peers.includes(d.country) && d.year >= 2000
+      );
       const y = d3.scaleLinear()
-        .domain([d3.min(data, d => d.lifeExpectancy)! - 2, d3.max(data, d => d.lifeExpectancy)! + 2])
+        .domain([d3.min(data, (d) => d.lifeExpectancy)! - 2, d3.max(data, (d) => d.lifeExpectancy)! + 2,
+        ])
         .range([height, 0]);
 
       svg.append("g").attr("transform", `translate(0,${height})`).call(d3.axisBottom(x).tickFormat(d3.format("d")));
       svg.append("g").call(d3.axisLeft(y));
 
-      const grouped = d3.group(data, d => d.country);
-      const line = d3.line<any>().x(d => x(d.year)).y(d => y(d.lifeExpectancy));
+      const grouped = d3.group(data, (d) => d.country);
+      const line = d3.line<any>().x((d) => x(d.year)).y((d) => y(d.lifeExpectancy));
 
+      // Draw lines
       grouped.forEach((values, key) => {
         const isMain = key === countryData.name;
-        svg.append("path").datum(values).attr("fill", "none").attr("stroke", isMain ? countryData.color : "#e9e8e8")
-          .attr("stroke-width", isMain ? 5 : 2).attr("opacity", isMain ? 1 : 0.4).attr("d", line);
-        
+        svg
+          .append("path")
+          .datum(values)
+          .attr("fill", "none")
+          .attr("stroke", isMain ? countryData.color : "#e9e8e8")
+          .attr("stroke-width", isMain ? 5 : 2)
+          .attr("opacity", isMain ? 1 : 0.4)
+          .attr("d", line);
+      });
+
+      // Label positions
+      interface LabelNode {
+        country: string;
+        x: number;
+        y: number;
+      }
+
+      const labelsData: LabelNode[] = [];
+      grouped.forEach((values, key) => {
         const last = values[values.length - 1];
-        svg.append("text").attr("x", x(last.year) + 8).attr("y", y(last.lifeExpectancy)).style("font-size", isMain ? "14px" : "11px")
-          .style("font-weight", "bold").style("fill", isMain ? countryData.color : "#e9e8e8").text(key);
+        labelsData.push({ country: key, x: x(last.year) + 8, y: y(last.lifeExpectancy) });
+      });
+
+      const simulation = d3.forceSimulation(labelsData as any)
+        .force("y", d3.forceY((d) => (d as LabelNode).y).strength(1))
+        .force("collide", d3.forceCollide(14))
+        .stop();
+
+      for (let i = 0; i < 200; i++) simulation.tick();
+
+      labelsData.forEach((node) => {
+        const isMain = node.country === countryData.name;
+        svg
+          .append("text")
+          .attr("x", node.x)
+          .attr("y", node.y)
+          .style("font-size", isMain ? "14px" : "11px")
+          .style("font-weight", "bold")
+          .style("fill", isMain ? countryData.color : "#e9e8e8")
+          .text(node.country);
       });
 
       const focusLine = svg.append("line").attr("stroke", "#999").attr("stroke-width", 1).attr("y1", 0).attr("y2", height).style("opacity", 0);
@@ -138,15 +185,19 @@ export default function Chapter4Chart({ countryData }: Props) {
       svg.append("rect").attr("width", width).attr("height", height).attr("fill", "none").attr("pointer-events", "all")
         .on("mousemove", (event) => {
           const year = Math.round(x.invert(d3.pointer(event)[0]));
-          const filtered = data.filter(d => d.year === year).sort((a,b) => b.lifeExpectancy - a.lifeExpectancy);
-          
+          const filtered = data
+            .filter((d) => d.year === year)
+            .sort((a, b) => b.lifeExpectancy - a.lifeExpectancy);
           if (filtered.length === 0) return;
-
           let content = `<div style="font-weight:900; margin-bottom:6px; border-bottom:1px solid #ccc">${year}</div>`;
-          filtered.forEach(d => {
+          filtered.forEach((d) => {
             const isMain = d.country === countryData.name;
-            content += `<div style="color:${isMain ? countryData.color : '#444'}; font-weight:${isMain ? 900 : 400}; display:flex; justify-content:space-between; gap:10px">
-              <span>● ${d.country}</span> <span><b>${d.lifeExpectancy.toFixed(1)}</b></span>
+            content += `<div style="color:${
+              isMain ? countryData.color : "#444"
+            }; font-weight:${isMain ? 900 : 400}; display:flex; justify-content:space-between; gap:10px">
+              <span>● ${d.country}</span> <span><b>${d.lifeExpectancy.toFixed(
+                1
+              )}</b></span>
             </div>`;
           });
 
@@ -155,14 +206,33 @@ export default function Chapter4Chart({ countryData }: Props) {
         })
         .on("mouseleave", () => { tooltip.style("opacity", 0); focusLine.style("opacity", 0); });
 
-      svg.append("text").attr("x", width/2).attr("y", -25).attr("text-anchor", "middle").style("fill", "#fff").style("font-size", "22px").style("font-weight", "900")
+      svg
+        .append("text")
+        .attr("x", width / 2)
+        .attr("y", -25)
+        .attr("text-anchor", "middle")
+        .style("fill", "#fff")
+        .style("font-size", "22px")
+        .style("font-weight", "900")
         .text(`${peerInfo.label.toUpperCase()}`);
     }
 
     // Common Axis Labels
-    svg.append("text").attr("x", width/2).attr("y", height + 50).attr("text-anchor", "middle").style("fill", "#b8b8b8").text("Year");
-    svg.append("text").attr("transform", "rotate(-90)").attr("x", -height/2).attr("y", -45).attr("text-anchor", "middle").style("fill", "#b8b8b8").text("Life Expectancy");
-
+    svg
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", height + 50)
+      .attr("text-anchor", "middle")
+      .style("fill", "#b8b8b8")
+      .text("Year");
+    svg
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -height / 2)
+      .attr("y", -45)
+      .attr("text-anchor", "middle")
+      .style("fill", "#b8b8b8")
+      .text("Life Expectancy");
   }, [view, countryData, peerInfo]);
 
   return (
