@@ -15,7 +15,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
   const [showRanking, setShowRanking] = useState(false);
   const [rankMessage, setRankMessage] = useState("");
 
-  const eduValue = countryData.edu || 0;
+  const eduValue = countryData.schooling || 0;
   const maxAllowedLevel =
     eduValue >= 16 ? 4 :
     eduValue >= 12 ? 3 :
@@ -126,7 +126,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
 
     const ranked = countriesData
       .filter(d => d.cat === countryData.cat)
-      .sort((a, b) => b.edu - a.edu);
+      .sort((a, b) => b.schooling- a.schooling);
 
     const rankPosition =
       ranked.findIndex(d => d.name === countryData.name) + 1;
@@ -155,7 +155,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .attr("height", height);
 
     const x = d3.scaleLinear()
-      .domain([0, d3.max(ranked, d => d.edu)!])
+      .domain([0, d3.max(ranked, d => d.schooling)!])
       .range([0, 220]);
 
     const y = d3.scaleBand()
@@ -181,7 +181,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       )
       .transition()
       .duration(900)
-      .attr("width", d => x(d.edu));
+      .attr("width", d => x(d.schooling));
 
     // Country labels
     gRank.selectAll(".country")
@@ -200,11 +200,11 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .data(ranked)
       .enter()
       .append("text")
-      .attr("x", d => x(d.edu) + 6)
+      .attr("x", d => x(d.schooling) + 6)
       .attr("y", d => y(d.name)! + y.bandwidth() / 2 + 4)
       .style("fill", "#888")
       .style("font-size", "11px")
-      .text(d => `${d.edu} yrs`);
+      .text(d => `${d.schooling} yrs`);
 
   }, [showRanking, countryData, countriesData]);
 
