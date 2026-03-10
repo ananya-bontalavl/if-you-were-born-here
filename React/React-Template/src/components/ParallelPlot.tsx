@@ -30,12 +30,18 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     "Low Income": "#A56B6B",
   };
 
-  // Summary stats per category
+  // Summary stats per category — now uses `schooling` field
   const categoryStats = Object.entries(categoryColors).map(([cat, color]) => {
     const group = COUNTRIES.filter(c => c.cat === cat);
     if (!group.length) return null;
     const avg = (key: string) => (group.reduce((s, c) => s + (c[key] || 0), 0) / group.length).toFixed(1);
-    return { cat, color, mortality: avg("mortality"), edu: avg("edu"), gni: Math.round(group.reduce((s, c) => s + (c.gni || 0), 0) / group.length).toLocaleString(), life: avg("life") };
+    return {
+      cat, color,
+      mortality: avg("mortality"),
+      schooling: avg("schooling"),
+      gni: Math.round(group.reduce((s, c) => s + (c.gni || 0), 0) / group.length).toLocaleString(),
+      life: avg("life")
+    };
   }).filter(Boolean);
 
   useEffect(() => {
@@ -52,22 +58,22 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
     const dimensions = [
-      { key: "mortality", label: "Mortality", domain: [12, 0] },
-      { key: "edu", label: "Education", domain: [0, 120] },
-      { key: "gni", label: "Income", domain: [0, 80000] },
-      { key: "life", label: "Longevity", domain: [45, 90] }
+      { key: "mortality",  label: "Mortality",  domain: [12, 0] as [number, number] },
+      { key: "schooling",  label: "Schooling",  domain: [0, 22] as [number, number] },
+      { key: "gni",        label: "Income",     domain: [0, 80000] as [number, number] },
+      { key: "life",       label: "Longevity",  domain: [45, 90] as [number, number] },
     ];
 
     const x = d3.scalePoint().range([0, innerWidth]).domain(dimensions.map(d => d.label));
 
-    const yScales: any = {};
+    const yScales: Record<string, d3.ScaleLinear<number, number>> = {};
     dimensions.forEach(d => {
       yScales[d.label] = d3.scaleLinear().domain(d.domain).range([innerHeight, 0]).clamp(true);
     });
 
     const lineGenerator = d3.line<any>().x(d => d.x).y(d => d.y).curve(d3.curveLinear);
     const getPathData = (d: any) => dimensions.map(dim => ({
-      x: x(dim.label),
+      x: x(dim.label) as number,
       y: yScales[dim.label](d[dim.key] || 0)
     }));
 
@@ -76,6 +82,15 @@ export default function ParallelPlot({ selectedCountry }: Props) {
       const axisG = g.append("g").attr("transform", `translate(${x(dim.label)}, 0)`);
       axisG.append("line").attr("y1", 0).attr("y2", innerHeight).attr("stroke", "rgba(255,255,255,0.15)");
       axisG.call(d3.axisLeft(yScales[dim.label]).ticks(5).tickSize(-5)).attr("color", "rgba(255,255,255,0.8)");
+
+      // Append "yr" suffix to Schooling tick labels
+      if (dim.label === "Schooling") {
+        axisG.selectAll<SVGTextElement, unknown>(".tick text").each(function () {
+          const el = d3.select(this);
+          el.text(el.text() + " yr");
+        });
+      }
+
       axisG.append("text")
         .attr("y", -25).attr("text-anchor", "middle")
         .style("fill", "#aaa").style("font-size", "10px")
@@ -83,7 +98,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .text(dim.label);
     });
 
-    // Global lines with animated intro (one by one)
+    // Global lines with animated intro
     if (showGlobal) {
       const filteredGlobal = COUNTRIES.filter(d => {
         const isSelected = d.name === selectedCountry.name;
@@ -101,7 +116,6 @@ export default function ParallelPlot({ selectedCountry }: Props) {
           .attr("opacity", 0)
           .style("cursor", "pointer");
 
-        // Animated intro: stagger each line
         const pathNode = pathEl.node() as SVGPathElement;
         const len = pathNode.getTotalLength();
         pathEl
@@ -114,13 +128,11 @@ export default function ParallelPlot({ selectedCountry }: Props) {
           .attr("stroke-dashoffset", 0)
           .attr("opacity", 0.6);
 
-        // Tooltip on hover
         pathEl
           .on("mouseenter", function (event) {
             d3.select(this).attr("opacity", 1).attr("stroke-width", 4);
             const rect = wrapperRef.current?.getBoundingClientRect();
-            const svgRect = svgRef.current?.getBoundingClientRect();
-            if (!svgRect || !rect) return;
+            if (!rect) return;
             setTooltip({
               visible: true,
               x: event.clientX - rect.left,
@@ -140,7 +152,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
       });
     }
 
-    // Winner line on top
+    // Selected country line on top
     if (traced) {
       const path = g.append("path")
         .datum(getPathData(selectedCountry))
@@ -152,7 +164,8 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .style("filter", `drop-shadow(0 0 10px ${selectedCountry.color})`);
 
       const length = (path.node() as SVGPathElement).getTotalLength();
-      path.attr("stroke-dasharray", length + " " + length)
+      path
+        .attr("stroke-dasharray", length + " " + length)
         .attr("stroke-dashoffset", length)
         .transition().duration(2000).ease(d3.easeCubicInOut)
         .attr("stroke-dashoffset", 0);
@@ -224,7 +237,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
             <span style={{ color: '#fff', fontWeight: 700 }}>{tooltip.country.mortality}</span> mortality/100
           </p>
           <p style={{ margin: '2px 0', fontSize: '11px', color: '#888' }}>
-            <span style={{ color: '#fff', fontWeight: 700 }}>{tooltip.country.edu}%</span> education
+            <span style={{ color: '#fff', fontWeight: 700 }}>{tooltip.country.schooling} yrs</span> schooling
           </p>
           <p style={{ margin: '2px 0', fontSize: '11px', color: '#888' }}>
             <span style={{ color: '#fff', fontWeight: 700 }}>${tooltip.country.gni?.toLocaleString()}</span> GNI
@@ -251,10 +264,10 @@ export default function ParallelPlot({ selectedCountry }: Props) {
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 {[
-                  { label: 'Mortality', val: `${stat.mortality}/100` },
-                  { label: 'Education', val: `${stat.edu}%` },
-                  { label: 'GNI', val: `$${stat.gni}` },
-                  { label: 'Life Exp.', val: `${stat.life} yrs` },
+                  { label: 'Mortality',  val: `${stat.mortality}/100` },
+                  { label: 'Schooling',  val: `${stat.schooling} yrs` },
+                  { label: 'GNI',        val: `$${stat.gni}` },
+                  { label: 'Life Exp.',  val: `${stat.life} yrs` },
                 ].map(({ label, val }) => (
                   <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '9px', color: '#555', textTransform: 'uppercase' }}>{label}</span>
