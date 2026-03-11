@@ -247,7 +247,7 @@ export default function Chapter4Chart({ countryData }: Props) {
       </button>
 
       <p style={{ color: countryData.color, fontSize: "15px", maxWidth: "600px", textAlign: "center", fontWeight: 500 }}>
-        {view === "gender" ? "This chart visualizes the difference in life expectancy between men and women in your selected country since 2000." : `Showing your country alongside the other 4 countries in the same economic category ${peerInfo.label}`}
+        {view === "gender" ? "This chart visualizes the difference in life expectancy between men and women in your country since 2000." : `Showing your country alongside the other 4 countries in the same economic category ${peerInfo.label}`}
       </p>
     </div>
   );

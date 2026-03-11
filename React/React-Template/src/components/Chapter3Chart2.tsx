@@ -21,8 +21,8 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
     d3.select(ref.current).selectAll("*").remove();
 
     const margin = { top: 50, right: 200, bottom: 100, left: 90 };
-    const width = 1100 - margin.left - margin.right;
-    const height = 620 - margin.top - margin.bottom;
+    const width = 1200 - margin.left - margin.right;
+    const height = 720 - margin.top - margin.bottom;
 
     const svg = d3
       .select(ref.current)
@@ -107,7 +107,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
 
     // Clamp dots so they don't cross the x-axis
     data.forEach((d) => {
-      d.y = Math.min(d.y ?? 0, height - 10);
+      d.y = Math.min(d.y ?? 0, height - 12);
     });
 
     const tooltip = d3.select(tooltipRef.current);
@@ -133,7 +133,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
         .attr("x", (x(cat) ?? 0) + 30)
         .attr("y", y(median) + 4)
         .attr("fill", "#cccccc")
-        .style("font-size", "12px")
+        .style("font-size", "15px")
         .style("font-weight", "600")
         .text(`$${Math.round(median / 1000)}k`);
     });
@@ -157,7 +157,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
         .attr("x", width + 6)
         .attr("y", y(selectedData.gni3) + 4)
         .attr("fill", "#ffffff")
-        .style("font-size", "12px")
+        .style("font-size", "15px")
         .style("font-weight", "600")
         .text(selectedCountry.name);
     }
@@ -179,7 +179,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       )
       .attr("stroke-width", 2)
       .attr("opacity", (d) =>
-        d.country === selectedCountry?.name ? 1 : 0.78
+        d.country === selectedCountry?.name ? 1 : 0.85
       )
       .attr("filter", (d) =>
         d.country === selectedCountry?.name ? "url(#glow)" : null
@@ -206,12 +206,12 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
 
     categories.forEach((cat, i) => {
       const g = legend.append("g").attr("transform", `translate(0, ${i * 28})`);
-      g.append("circle").attr("r", 6).attr("fill", color(cat));
+      g.append("circle").attr("r", 7).attr("fill", color(cat));
       g.append("text")
-        .attr("x", 14)
+        .attr("x", 16)
         .attr("y", 5)
         .attr("fill", "#e0e0e0")
-        .style("font-size", "13px")
+        .style("font-size", "16px")
         .style("font-weight", "600")
         .text(cat);
     });
@@ -222,7 +222,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x))
       .attr("color", "#e0e0e0")
-      .style("font-size", "14px")
+      .style("font-size", "18px")
       .style("font-weight", "600");
 
     // Wrap x-axis labels
@@ -246,7 +246,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       .append("g")
       .call(d3.axisLeft(y).ticks(6))
       .attr("color", "#e0e0e0")
-      .style("font-size", "14px")
+      .style("font-size", "18px")
       .style("font-weight", "600");
 
     // Y LABEL
@@ -254,10 +254,10 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       .append("text")
       .attr("transform", "rotate(-90)")
       .attr("x", -height / 2)
-      .attr("y", -65)
+      .attr("y", -80)
       .attr("text-anchor", "middle")
       .attr("fill", "#e0e0e0")
-      .style("font-size", "14px")
+      .style("font-size", "18px")
       .style("font-weight", "600")
       .text("GNI per Capita (PPP Adjusted USD)");
 
@@ -265,17 +265,27 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
     svg
       .append("text")
       .attr("x", width / 2)
-      .attr("y", height + 80)
+      .attr("y", height + 100)
       .attr("text-anchor", "middle")
       .attr("fill", "#e0e0e0")
-      .style("font-size", "14px")
+      .style("font-size", "18px")
       .style("font-weight", "600")
       .text("World Bank Income Category");
 
   }, [selectedCountry]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div
+    style={{
+      position: "relative",
+      background: "#111111",
+      borderRadius: "16px",
+      padding: "24px 8px 8px 8px",
+      width: "100%",              
+      boxSizing: "border-box",
+      border: "1px solid #222222",
+    }}
+    >
       <div ref={ref} />
       <div
         ref={tooltipRef}
