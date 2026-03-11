@@ -127,7 +127,7 @@ export default function Chapter3Chart({ countryData }: Props) {
         </button>
 
         {clicks === 3 && !showComparison && (
-          <button onClick={handleShowComparison} style={{ marginTop: '16px', padding: '12px 30px', borderRadius: '50px', background: countryData.color, color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 700 }}>
+          <button onClick={handleShowComparison} style={{ display: 'block', margin: '16px auto 0', padding: '12px 30px', borderRadius: '50px', background: countryData.color, color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 700 }}>
             Show Comparison Chart
           </button>
         )}
