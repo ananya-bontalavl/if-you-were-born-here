@@ -26,12 +26,25 @@ export default function Chapter3Chart({ countryData }: Props) {
   }, [clicks, gniValues]);
 
   const getDescription = (val: number) => {
-    if (clicks === 0) return `In ${countryData.name}, your economic fate is yet to be determined. Perform labor to see your reality.`;
-    if (val < 3000) return "Most of your income goes toward food and basic shelter. Healthcare and saving are largely out of reach.";
-    if (val < 8000) return "You meet basic needs, but a single financial shock can be devastating. Long-term planning is a rare privilege.";
-    if (val < 15000) return "Life is stable, but comfort requires hard work. You earn more than 70% of the global population.";
-    if (val < 30000) return "You have real breathing room. Most daily stresses aren't about survival, but about choices.";
-    return "Financial anxiety is largely removed. You are in the top tier of global earners with access to high-end security.";
+    if (clicks === 0) {return `In ${countryData.name}, your economic fate is yet to be determined. Perform labor to see your reality.`;}
+    if (clicks === 1) {
+      if (val < 3000) return "Most of your income goes toward food and basic shelter. Healthcare and saving are largely out of reach.";
+      if (val < 8000) return "You meet basic needs, but a single financial shock can be devastating.";
+      return "Your childhood has relative stability compared to much of the world.";
+    }
+
+    if (clicks === 2) {
+      if (val < 8000) return "Your prime working years are dominated by financial pressure and limited savings.";
+      if (val < 15000) return "Life is stable, but comfort requires hard work.";
+      return "Your working years offer real opportunities for upward mobility.";
+    }
+
+    if (clicks === 3) {
+      if (val < 15000) return "Later life remains financially uncertain with limited retirement security.";
+      if (val < 30000) return "You have moderate financial breathing room later in life.";
+      return "Financial anxiety is largely removed. You are in the top tier of global earners.";
+    }
+    return "";
   };
 
   const handleWork = () => {
@@ -114,7 +127,6 @@ export default function Chapter3Chart({ countryData }: Props) {
           ))}
         </div>
         <p style={{ margin: '0 0 20px 0', fontSize: '14px', color: countryData.color, lineHeight: 1.6, minHeight: '60px' }}>
-          <strong>{clicks === 1 ? "CHILDHOOD: " : clicks === 2 ? "PRIME YEARS: " : clicks === 3 ? "LATER LIFE: " : ""}</strong>
           {getDescription(currentGni)}
         </p>
         <button onClick={handleWork} disabled={clicks >= 3 || isWorking} style={{ padding: '14px 40px', borderRadius: '100px', background: clicks >= 3 ? '#111' : (isWorking ? '#333' : '#fff'), color: '#000', border: 'none', fontWeight: 900, cursor: 'pointer',
