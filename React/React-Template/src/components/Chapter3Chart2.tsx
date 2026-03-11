@@ -20,8 +20,8 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
     if (!ref.current) return;
     d3.select(ref.current).selectAll("*").remove();
 
-    const margin = { top: 50, right: 200, bottom: 100, left: 90 };
-    const width = 1200 - margin.left - margin.right;
+    const margin = { top: 80, right: 220, bottom: 140, left: 100 };
+    const width = 1400 - margin.left - margin.right;
     const height = 720 - margin.top - margin.bottom;
 
     const svg = d3
@@ -55,7 +55,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
 
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.gni3) || 60000])
+      .domain([-1500, d3.max(data, (d) => d.gni3) || 60000])
       .nice()
       .range([height, 0]);
 
@@ -107,7 +107,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
 
     // Clamp dots so they don't cross the x-axis
     data.forEach((d) => {
-      d.y = Math.min(d.y ?? 0, height - 12);
+      d.y = Math.min(Math.max(d.y ?? 0, 12), height - 12);
     });
 
     const tooltip = d3.select(tooltipRef.current);
@@ -133,7 +133,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
         .attr("x", (x(cat) ?? 0) + 30)
         .attr("y", y(median) + 4)
         .attr("fill", "#cccccc")
-        .style("font-size", "15px")
+        .style("font-size", "17px")
         .style("font-weight", "600")
         .text(`$${Math.round(median / 1000)}k`);
     });
@@ -157,7 +157,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
         .attr("x", width + 6)
         .attr("y", y(selectedData.gni3) + 4)
         .attr("fill", "#ffffff")
-        .style("font-size", "15px")
+        .style("font-size", "17px")
         .style("font-weight", "600")
         .text(selectedCountry.name);
     }
@@ -211,7 +211,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
         .attr("x", 16)
         .attr("y", 5)
         .attr("fill", "#e0e0e0")
-        .style("font-size", "16px")
+        .style("font-size", "18px")
         .style("font-weight", "600")
         .text(cat);
     });
@@ -222,7 +222,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x))
       .attr("color", "#e0e0e0")
-      .style("font-size", "18px")
+      .style("font-size", "19px")
       .style("font-weight", "600");
 
     // Wrap x-axis labels
@@ -246,7 +246,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       .append("g")
       .call(d3.axisLeft(y).ticks(6))
       .attr("color", "#e0e0e0")
-      .style("font-size", "18px")
+      .style("font-size", "19px")
       .style("font-weight", "600");
 
     // Y LABEL
@@ -257,7 +257,7 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
       .attr("y", -80)
       .attr("text-anchor", "middle")
       .attr("fill", "#e0e0e0")
-      .style("font-size", "18px")
+      .style("font-size", "19px")
       .style("font-weight", "600")
       .text("GNI per Capita (PPP Adjusted USD)");
 
@@ -265,10 +265,10 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
     svg
       .append("text")
       .attr("x", width / 2)
-      .attr("y", height + 100)
+      .attr("y", height + 130)
       .attr("text-anchor", "middle")
       .attr("fill", "#e0e0e0")
-      .style("font-size", "18px")
+      .style("font-size", "19px")
       .style("font-weight", "600")
       .text("World Bank Income Category");
 

@@ -294,7 +294,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         </button>
       ) : (
         <p style={{ marginTop: '20px', color: '#555', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.2em' }}>
-          {showGlobal ? "Global Context Revealed" : "Analyzing trajectories..."}
+          {showGlobal ? "Average Global Context Revealed" : "Analyzing trajectories..."}
         </p>
       )}
     </div>

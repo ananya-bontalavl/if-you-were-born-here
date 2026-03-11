@@ -121,7 +121,7 @@ export default function Chapter4Chart({ countryData }: Props) {
       );
       const y = d3.scaleLinear()
         .domain([
-          d3.min(data, (d) => d.lifeExpectancy)! - 2,
+          d3.min(data, (d) => d.lifeExpectancy)! - 5,
           d3.max(data, (d) => d.lifeExpectancy)! + 2,
         ])
         .range([height, 0]);

@@ -26,7 +26,7 @@ export default function Chapter3Chart({ countryData }: Props) {
   }, [clicks, gniValues]);
 
   const getDescription = (val: number) => {
-    if (clicks === 0) return `In ${countryData.name}, your economic fate is yet to be determined. Perform labor to see your childhood reality.`;
+    if (clicks === 0) return `In ${countryData.name}, your economic fate is yet to be determined. Perform labor to see your reality.`;
     if (val < 3000) return "Most of your income goes toward food and basic shelter. Healthcare and saving are largely out of reach.";
     if (val < 8000) return "You meet basic needs, but a single financial shock can be devastating. Long-term planning is a rare privilege.";
     if (val < 15000) return "Life is stable, but comfort requires hard work. You earn more than 70% of the global population.";
