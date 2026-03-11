@@ -11,6 +11,7 @@ export default function Chapter3Chart({ countryData }: Props) {
   const stackRef = useRef<HTMLDivElement>(null);
   const [clicks, setClicks] = useState(0); 
   const [isWorking, setIsWorking] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
 
   const gniValues = useMemo(() => {
     const data = GNI_DATA.find(d => d.country === countryData.name);
@@ -21,7 +22,7 @@ export default function Chapter3Chart({ countryData }: Props) {
     if (clicks === 0) return 0;
     if (clicks === 1) return gniValues.gni1;
     if (clicks === 2) return gniValues.gni2;
-    return gniValues.gni3; // This matches the Beeswarm's Y-axis
+    return gniValues.gni3;
   }, [clicks, gniValues]);
 
   const getDescription = (val: number) => {
@@ -39,6 +40,10 @@ export default function Chapter3Chart({ countryData }: Props) {
       setClicks(prev => Math.min(3, prev + 1));
       setIsWorking(false);
     }, 400);
+  };
+
+  const handleShowComparison = () => {
+    setShowComparison(true);
   };
 
   useEffect(() => {
@@ -120,9 +125,14 @@ export default function Chapter3Chart({ countryData }: Props) {
         >
           {clicks >= 3 ? 'LIFETIME SECURED' : isWorking ? 'CALCULATING...' : `PERFORM LABOR`}
         </button>
-      </div>
 
-      {clicks > 0 && (
+        {clicks === 3 && !showComparison && (
+          <button onClick={handleShowComparison} style={{ marginTop: '16px', padding: '12px 30px', borderRadius: '50px', background: countryData.color, color: '#fff', border: 'none', cursor: 'pointer', fontWeight: 700 }}>
+            Show Comparison Chart
+          </button>
+        )}
+      </div>
+      {showComparison && (
         <div style={{ marginTop: '20px', animation: 'fadeIn 1s ease-in' }}>
           <Chapter3Chart2 selectedCountry={countryData} />
         </div>
