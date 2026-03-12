@@ -142,24 +142,65 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
     const selectedData = data.find((d) => d.country === selectedCountry?.name);
 
     if (selectedData) {
+      const yPos = y(selectedData.gni3);
+      const isHighIncome = selectedData.category === "High Income";
+
       svg
         .append("line")
         .attr("x1", 0)
         .attr("x2", width)
-        .attr("y1", y(selectedData.gni3))
-        .attr("y2", y(selectedData.gni3))
+        .attr("y1", yPos)
+        .attr("y2", yPos)
         .attr("stroke", "#ffffff")
         .attr("stroke-dasharray", "5,5")
         .attr("opacity", 0.5);
 
+      // Smart placement:
+      // - High Income (e.g. USA): place label INSIDE the chart, right-aligned, to avoid legend
+      // - All others (e.g. China): place label on the RIGHT edge of the chart
+      // - If near the top (yPos < 40): nudge label below the line
+      const labelText = selectedCountry.name;
+      const charWidth = 9;
+      const labelW = labelText.length * charWidth + 16;
+      const labelH = 22;
+
+      let labelX: number;
+      let labelAnchor: string;
+      let rectX: number;
+      const labelY = yPos < 40 ? yPos + 20 : yPos - 8;
+
+      if (isHighIncome) {
+        // Place inside the plot, right-aligned, clear of the legend
+        labelX = width - 10;
+        labelAnchor = "end";
+        rectX = width - 10 - labelW;
+      } else {
+        // Place just past the right edge of the plot
+        labelX = width + 6;
+        labelAnchor = "start";
+        rectX = width + 6;
+      }
+
+      // Dark pill background for readability
+      svg
+        .append("rect")
+        .attr("x", rectX)
+        .attr("y", labelY - 16)
+        .attr("width", labelW)
+        .attr("height", labelH)
+        .attr("fill", "#111111")
+        .attr("opacity", 0.85)
+        .attr("rx", 4);
+
       svg
         .append("text")
-        .attr("x", width + 6)
-        .attr("y", y(selectedData.gni3) + 4)
+        .attr("x", isHighIncome ? labelX - 6 : labelX + 6)
+        .attr("y", labelY)
+        .attr("text-anchor", labelAnchor)
         .attr("fill", "#ffffff")
-        .style("font-size", "17px")
-        .style("font-weight", "600")
-        .text(selectedCountry.name);
+        .style("font-size", "15px")
+        .style("font-weight", "700")
+        .text(labelText);
     }
 
     // DOTS
@@ -276,15 +317,15 @@ export default function Chapter3Chart2({ selectedCountry }: Props) {
 
   return (
     <div
-    style={{
-      position: "relative",
-      background: "#111111",
-      borderRadius: "16px",
-      padding: "24px 8px 8px 8px",
-      width: "100%",              
-      boxSizing: "border-box",
-      border: "1px solid #222222",
-    }}
+      style={{
+        position: "relative",
+        background: "#111111",
+        borderRadius: "16px",
+        padding: "24px 8px 8px 8px",
+        width: "100%",
+        boxSizing: "border-box",
+        border: "1px solid #222222",
+      }}
     >
       <div ref={ref} />
       <div

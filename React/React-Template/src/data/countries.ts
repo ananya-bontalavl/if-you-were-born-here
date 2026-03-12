@@ -24,8 +24,8 @@ export const COUNTRY_DATA = [
 ];
 
 const BASE_COLORS: Record<string, string> = {
-  "High Income": "#36BBA7",
-  "Upper Middle Income": "#1e90ff",
+  "High Income": "#1e90ff",
+  "Upper Middle Income": "#36BBA7",
   "Lower Middle Income": "#FF692A",
   "Low Income": "#ff3f81"
 };

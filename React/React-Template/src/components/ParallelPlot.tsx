@@ -24,8 +24,8 @@ export default function ParallelPlot({ selectedCountry }: Props) {
   const categories = ["all", "High Income", "Upper Middle Income", "Lower Middle Income", "Low Income"];
 
   const categoryColors: Record<string, string> = {
-    "High Income": "#5C9E7A",
-    "Upper Middle Income": "#6F7FB2",
+    "High Income":"#6F7FB2" ,
+    "Upper Middle Income": "#5C9E7A",
     "Lower Middle Income": "#B89B6B",
     "Low Income": "#A56B6B",
   };
@@ -60,7 +60,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     const dimensions = [
       { key: "mortality",  label: "Mortality",  domain: [12, 0] as [number, number] },
       { key: "schooling",  label: "Schooling",  domain: [0, 22] as [number, number] },
-      { key: "gni",        label: "Income",     domain: [0, 80000] as [number, number] },
+      { key: "gni",        label: "Income",     domain: [0, 60000] as [number, number] },
       { key: "life",       label: "Longevity",  domain: [45, 90] as [number, number] },
     ];
 

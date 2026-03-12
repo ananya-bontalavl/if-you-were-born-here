@@ -67,7 +67,7 @@ export default function Chapter3Chart({ countryData }: Props) {
     const width = 500;
     const height = 130;
     const barHeight = 35;
-    const margin = { top: 45, right: 25, bottom: 35, left: 25 };
+    const margin = { top: 45, right: 50, bottom: 35, left: 25 };
     const innerWidth = width - margin.left - margin.right;
 
     const svg = svgElement.append("svg").attr("width", "100%").attr("viewBox", `0 0 ${width} ${height}`);
