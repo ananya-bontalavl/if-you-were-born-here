@@ -165,10 +165,9 @@ const LotterySpinning = ({ stage, rotation, setStage, handleSpin }: Props) => {
                     overflow: "hidden",
                     transform: `rotate(${rotation}deg)`,
                     transition: "transform 4.8s cubic-bezier(.08,.8,.2,1)",
-                    background: `conic-gradient(${COUNTRIES.map(
-                      (c, i) =>
-                        `${c.color} ${i * 18}deg ${(i + 1) * 18}deg`
-                    ).join(", ")})`,
+                    background: `conic-gradient(from -270deg,${COUNTRIES.map(
+                    (c, i) => `${c.color} ${i * 18}deg ${(i + 1) * 18}deg`
+                    ).join(", ")})`, 
                     boxShadow: isSpinning
                       ? "0 0 120px rgba(99,102,241,0.35), inset 0 0 60px rgba(0,0,0,0.7)"
                       : "0 0 80px rgba(99,102,241,0.2), inset 0 0 40px rgba(0,0,0,0.6)",

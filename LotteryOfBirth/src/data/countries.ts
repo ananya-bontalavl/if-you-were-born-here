@@ -24,7 +24,7 @@ export const COUNTRY_DATA = [
 ];
 
 const BASE_COLORS: Record<string, string> = {
-  "High Income": "#1e90ff",
+  "High Income": "#1e90ff", 
   "Upper Middle Income": "#36BBA7",
   "Lower Middle Income": "#FF692A",
   "Low Income": "#ff3f81"
@@ -59,8 +59,9 @@ function hslToString(h: number, s: number, l: number) {
 
 function generateQuadrantColors(countries: any[], baseColor: string) {
   const hsl = hexToHSL(baseColor);
+  const total = countries.length;
   return countries.map((c, i) => {
-    const step = (i / (countries.length - 1)) * 20;
+    const step = total > 1 ? (i / (total - 1)) * 20 : 0;
     const l = Math.min(100, hsl.l + step);
     return { ...c, color: hslToString(hsl.h, hsl.s, l) };
   });
@@ -75,10 +76,20 @@ function groupByIncome(data: any[]) {
   return map;
 }
 
+const CATEGORY_ORDER = [
+  "High Income",
+  "Upper Middle Income",
+  "Lower Middle Income",
+  "Low Income"
+];
+
 const grouped = groupByIncome(COUNTRY_DATA);
+
+const ALL_COUNTRIES = CATEGORY_ORDER.flatMap(cat =>
+  generateQuadrantColors(grouped[cat] ?? [], BASE_COLORS[cat])
+);
+
 export const COUNTRIES = [
-  ...generateQuadrantColors(grouped["High Income"], BASE_COLORS["High Income"]),
-  ...generateQuadrantColors(grouped["Upper Middle Income"], BASE_COLORS["Upper Middle Income"]),
-  ...generateQuadrantColors(grouped["Lower Middle Income"], BASE_COLORS["Lower Middle Income"]),
-  ...generateQuadrantColors(grouped["Low Income"], BASE_COLORS["Low Income"])
+  ...ALL_COUNTRIES.slice(10),
+  ...ALL_COUNTRIES.slice(0, 15)
 ];

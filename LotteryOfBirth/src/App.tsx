@@ -9,11 +9,8 @@ import SimulatorSection from './components/SimulatorSection';
 const App: React.FC = () => {
   const [stage, setStage] = useState<'welcome' | 'spinning' | 'reveal' | 'simulator'>('welcome');
   const [rotation, setRotation] = useState(0);
-  
   const [winner, setWinner] = useState<any>(null);
   const [isSpinning, setIsSpinning] = useState(false);
-  
-  
   const [activeChapter, setActiveChapter] = useState(0);
 
   const globeRef = useRef<any>(null);
@@ -41,14 +38,12 @@ const App: React.FC = () => {
 
     setTimeout(() => {
       const actualRotation = newRotation % 360;
-      const adjustedRotation = (actualRotation + 90) % 360;
-      const winningAngle = (360 - adjustedRotation) % 360;
-      const index = Math.floor(winningAngle / 18);
+      const index = Math.floor(((360 - actualRotation + 270) % 360) / 18) % COUNTRIES.length;
 
       setWinner(COUNTRIES[index]);
       setStage('reveal');
       setIsSpinning(false);
-    }, 4000);
+    }, 5200);
   };
 
   return (
@@ -60,26 +55,19 @@ const App: React.FC = () => {
         fontFamily: 'system-ui, -apple-system, sans-serif', overflowX: 'hidden', position: 'relative'
       }}
     >
-      {/* Pass activeChapter to Ledger */}
       {(stage === 'reveal' || stage === 'simulator') && winner && (
-        <LifeLedger 
-          // country={winner.name} 
-          // color={winner.color} 
-          // category={winner.cat || "Income Tier"} 
-          // activeChapter={activeChapter} 
-          winner={winner} 
+        <LifeLedger
+          winner={winner}
           activeChapter={activeChapter}
         />
       )}
 
-      {/* Hide the spinning component if we are in simulator stage */}
       {stage !== 'simulator' && (
         <LotterySpinning
           stage={stage}
           rotation={rotation}
           setStage={setStage}
           handleSpin={handleSpin}
-          // COUNTRIES={COUNTRIES}
         />
       )}
 
@@ -91,7 +79,6 @@ const App: React.FC = () => {
         />
       )}
 
-      {/* Pass setActiveChapter to Simulator */}
       {stage === 'simulator' && winner && (
         <SimulatorSection winner={winner} setActiveChapter={setActiveChapter} />
       )}

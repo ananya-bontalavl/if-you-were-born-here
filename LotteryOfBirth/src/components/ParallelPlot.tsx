@@ -24,10 +24,10 @@ export default function ParallelPlot({ selectedCountry }: Props) {
   const categories = ["all", "High Income", "Upper Middle Income", "Lower Middle Income", "Low Income"];
 
   const categoryColors: Record<string, string> = {
-    "High Income":"#6F7FB2" ,
+    "High Income":"#6F7FB2", 
     "Upper Middle Income": "#5C9E7A",
     "Lower Middle Income": "#B89B6B",
-    "Low Income": "#A56B6B",
+    "Low Income": "#A56B6B" ,
   };
 
   // Summary stats per category 
