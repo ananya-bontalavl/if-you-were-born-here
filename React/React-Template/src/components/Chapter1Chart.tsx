@@ -102,7 +102,7 @@ export default function Chapter1Chart({ countryData }: Props) {
           }}>
             {didSurvive 
               ? `You made it past the threshold. In ${countryData.name}, ${(100-mortality).toFixed(1)}% of children survive their first 5 years.`
-              : `Statistically, you fell within the ${mortality}% of children in ${countryData.name} who do not reach their 5th birthday.`}
+              : `Statistically, you fell within the ${mortality}% of children in ${countryData.name} who do not reach their 5th birthday. But let's see what life would have been like if you had survived.`}
           </p>
         </div>
       )}

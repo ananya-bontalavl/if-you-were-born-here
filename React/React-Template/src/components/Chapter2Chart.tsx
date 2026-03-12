@@ -109,11 +109,11 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .data(steps)
       .enter()
       .append("text")
-      .attr("x", -15)
+      .attr("x", -5)
       .attr("y", (_, i) => (3 - i) * 60 + 10)
       .attr("text-anchor", "end")
       .style("fill", "#888")
-      .style("font-size", "12px")
+      .style("font-size", "17px")
       .text(d => d.label);
 
   }, [currentStep, countryData]);
@@ -203,7 +203,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .attr("x", d => x(d.schooling) + 6)
       .attr("y", d => y(d.name)! + y.bandwidth() / 2 + 4)
       .style("fill", "#888")
-      .style("font-size", "11px")
+      .style("font-size", "15px")
       .text(d => `${d.schooling} yrs`);
 
     // X axis label
@@ -212,7 +212,7 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
       .attr("y", height - 8)
       .attr("text-anchor", "middle")
       .style("fill", "#555")
-      .style("font-size", "11px")
+      .style("font-size", "17px")
       .text("Average Years of Formal Schooling");
 
   }, [showRanking, countryData, countriesData]);
@@ -250,13 +250,13 @@ export default function Chapter2Chart({ countryData, countriesData }: Props) {
 
           <div style={{
             marginTop: 30,
-            padding: 20,
+            padding: 40,
             borderRadius: 16,
             background: "#111",
             border: `1px solid ${countryData.color}33`
           }}>
-            <h4 style={{ color: "#6366f1" }}>{status.msg}</h4>
-            <p style={{ color: "#777", fontSize: 15 }}>{status.sub}</p>
+            <h4 style={{ color: "#6366f1", fontSize: 22 }}>{status.msg}</h4>
+            <p style={{ color: "#777", fontSize: 22 }}>{status.sub}</p>
 
             {!hasGraduated && (
               <button

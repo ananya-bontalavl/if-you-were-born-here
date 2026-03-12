@@ -9,11 +9,11 @@ import SimulatorSection from './components/SimulatorSection';
 const App: React.FC = () => {
   const [stage, setStage] = useState<'welcome' | 'spinning' | 'reveal' | 'simulator'>('welcome');
   const [rotation, setRotation] = useState(0);
-  // Using 'any' here prevents the "cat" property error
+  
   const [winner, setWinner] = useState<any>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   
-  // NEW: State to track which chapter the user is viewing
+  
   const [activeChapter, setActiveChapter] = useState(0);
 
   const globeRef = useRef<any>(null);
@@ -79,7 +79,7 @@ const App: React.FC = () => {
           rotation={rotation}
           setStage={setStage}
           handleSpin={handleSpin}
-          COUNTRIES={COUNTRIES}
+          // COUNTRIES={COUNTRIES}
         />
       )}
 

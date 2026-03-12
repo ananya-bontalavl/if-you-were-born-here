@@ -30,7 +30,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
     "Low Income": "#A56B6B",
   };
 
-  // Summary stats per category — now uses `schooling` field
+  // Summary stats per category 
   const categoryStats = Object.entries(categoryColors).map(([cat, color]) => {
     const group = COUNTRIES.filter(c => c.cat === cat);
     if (!group.length) return null;
@@ -83,7 +83,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
       axisG.append("line").attr("y1", 0).attr("y2", innerHeight).attr("stroke", "rgba(255,255,255,0.15)");
       axisG.call(d3.axisLeft(yScales[dim.label]).ticks(5).tickSize(-5)).attr("color", "rgba(255,255,255,0.8)");
 
-      // Append "yr" suffix to Schooling tick labels
+      
       if (dim.label === "Schooling") {
         axisG.selectAll<SVGTextElement, unknown>(".tick text").each(function () {
           const el = d3.select(this);
@@ -98,7 +98,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .text(dim.label);
     });
 
-    // Global lines with animated intro
+    
     if (showGlobal) {
       const filteredGlobal = COUNTRIES.filter(d => {
         const isSelected = d.name === selectedCountry.name;
@@ -161,7 +161,26 @@ export default function ParallelPlot({ selectedCountry }: Props) {
         .attr("stroke-width", 5)
         .attr("stroke-linecap", "round")
         .attr("d", lineGenerator)
-        .style("filter", `drop-shadow(0 0 10px ${selectedCountry.color})`);
+        .style("filter", `drop-shadow(0 0 10px ${selectedCountry.color})`)
+        .style("cursor", "pointer")
+        .on("mouseenter", function (event) {
+          const rect = wrapperRef.current?.getBoundingClientRect();
+          if (!rect) return;
+          setTooltip({
+            visible: true,
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top,
+            country: selectedCountry
+          });
+        })
+        .on("mousemove", function (event) {
+          const rect = wrapperRef.current?.getBoundingClientRect();
+          if (!rect) return;
+          setTooltip(prev => ({ ...prev, x: event.clientX - rect.left, y: event.clientY - rect.top }));
+        })
+        .on("mouseleave", function () {
+          setTooltip(prev => ({ ...prev, visible: false }));
+        });
 
       const length = (path.node() as SVGPathElement).getTotalLength();
       path
@@ -196,7 +215,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               style={{
-                fontSize: '9px', padding: '6px 14px', borderRadius: '20px',
+                fontSize: '12px', padding: '6px 14px', borderRadius: '20px',
                 border: `1px solid ${selectedCategory === cat ? (categoryColors[cat] || '#fff') : '#333'}`,
                 background: selectedCategory === cat ? (categoryColors[cat] ? `${categoryColors[cat]}22` : '#fff') : 'transparent',
                 color: selectedCategory === cat ? (categoryColors[cat] || '#000') : '#888',
@@ -221,7 +240,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
           left: tooltip.x + 16,
           top: tooltip.y - 10,
           background: 'rgba(10,10,15,0.95)',
-          border: `1px solid ${categoryColors[tooltip.country.cat] || '#444'}`,
+          border: `1px solid ${categoryColors[tooltip.country.cat] || tooltip.country.color || '#444'}`,
           borderRadius: '16px',
           padding: '14px 18px',
           pointerEvents: 'none',
@@ -230,7 +249,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
           minWidth: '180px',
           boxShadow: `0 8px 32px rgba(0,0,0,0.6)`
         }}>
-          <p style={{ margin: '0 0 8px', fontWeight: 900, fontSize: '14px', color: categoryColors[tooltip.country.cat] || '#fff' }}>
+          <p style={{ margin: '0 0 8px', fontWeight: 900, fontSize: '14px', color: categoryColors[tooltip.country.cat] || tooltip.country.color || '#fff' }}>
             {tooltip.country.name}
           </p>
           <p style={{ margin: '2px 0', fontSize: '11px', color: '#888' }}>
@@ -245,7 +264,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
           <p style={{ margin: '2px 0', fontSize: '11px', color: '#888' }}>
             <span style={{ color: '#fff', fontWeight: 700 }}>{tooltip.country.life} yrs</span> life expectancy
           </p>
-          <p style={{ margin: '8px 0 0', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em', color: categoryColors[tooltip.country.cat] || '#666' }}>
+          <p style={{ margin: '8px 0 0', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.1em', color: categoryColors[tooltip.country.cat] || tooltip.country.color || '#666' }}>
             {tooltip.country.cat}
           </p>
         </div>
@@ -259,7 +278,7 @@ export default function ParallelPlot({ selectedCountry }: Props) {
               background: 'rgba(255,255,255,0.03)', borderRadius: '16px',
               border: `1px solid ${stat.color}33`, padding: '16px 12px', textAlign: 'center'
             }}>
-              <p style={{ margin: '0 0 8px', fontSize: '9px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: stat.color }}>
+              <p style={{ margin: '0 0 8px', fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: stat.color }}>
                 {stat.cat}
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -270,8 +289,8 @@ export default function ParallelPlot({ selectedCountry }: Props) {
                   { label: 'Life Exp.',  val: `${stat.life} yrs` },
                 ].map(({ label, val }) => (
                   <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ fontSize: '9px', color: '#555', textTransform: 'uppercase' }}>{label}</span>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#ccc' }}>{val}</span>
+                    <span style={{ fontSize: '12px', color: '#555', textTransform: 'uppercase' }}>{label}</span>
+                    <span style={{ fontSize: '14px', fontWeight: 700, color: '#ccc' }}>{val}</span>
                   </div>
                 ))}
               </div>

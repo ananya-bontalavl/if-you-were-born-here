@@ -77,7 +77,7 @@ export default function Chapter3Chart({ countryData }: Props) {
       { label: "Survival",    color: "#ef4444", min: 0,     max: 3000  },
       { label: "Basic",       color: "#f97316", min: 3000,  max: 8000  },
       { label: "Stable",      color: "#eab308", min: 8000,  max: 15000 },
-      { label: "Comfortable", color: "#3b82f6", min: 15000, max: 30000 },
+      { label: "Comfort", color: "#3b82f6", min: 15000, max: 30000 },
       { label: "Wealthy",     color: "#22c55e", min: 30000, max: 60000 },
     ];
 
@@ -93,7 +93,7 @@ export default function Chapter3Chart({ countryData }: Props) {
 
     segments.forEach((seg, i) => {
       g.append("rect").attr("x", i * barWidth).attr("y", 0).attr("width", barWidth).attr("height", barHeight).attr("fill", seg.color).attr("opacity", 0.9).attr("rx", i === 0 ? 4 : i === segments.length - 1 ? 4 : 0);
-      g.append("text").attr("x", i * barWidth + barWidth / 2).attr("y", barHeight / 2 + 4).attr("text-anchor", "middle").attr("fill", "#000").style("font-size", "10px").style("font-weight", "900").text(seg.label.toUpperCase());
+      g.append("text").attr("x", i * barWidth + barWidth / 2).attr("y", barHeight / 2 + 4).attr("text-anchor", "middle").attr("fill", "#000").style("font-size", "11px").style("font-weight", "900").text(seg.label.toUpperCase());
     });
 
     const gniX = gniToX(Math.min(currentGni, 60000));
@@ -106,7 +106,7 @@ export default function Chapter3Chart({ countryData }: Props) {
         .attr("x", i * barWidth)
         .attr("y", barHeight + 18)
         .attr("text-anchor", "middle")
-        .style("font-size", "10px")
+        .style("font-size", "11px")
         .style("fill", "#666")
         .text(label);
     });
@@ -126,7 +126,7 @@ export default function Chapter3Chart({ countryData }: Props) {
             }} />
           ))}
         </div>
-        <p style={{ margin: '0 0 20px 0', fontSize: '14px', color: countryData.color, lineHeight: 1.6, minHeight: '60px' }}>
+        <p style={{ margin: '0 0 20px 0', fontSize: '20px', color: countryData.color, lineHeight: 1.6, minHeight: '60px' }}>
           {getDescription(currentGni)}
         </p>
         <button onClick={handleWork} disabled={clicks >= 3 || isWorking} style={{ padding: '14px 40px', borderRadius: '100px', background: clicks >= 3 ? '#111' : (isWorking ? '#333' : '#fff'), color: '#000', border: 'none', fontWeight: 900, cursor: 'pointer',
