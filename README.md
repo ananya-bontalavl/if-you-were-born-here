@@ -11,7 +11,8 @@ We selected 20 countries, 5 countries for each category:
 | Lower Middle Income | India, Vietnam, Egypt, Zimbabwe, Bangladesh |
 | Low Income | Ethiopia, Afghanistan, Niger, Chad, Somalia |
 
-[Website Link](lottery-of-birth.netlify.app)
+Project Live Link:
+https://lottery-of-birth.netlify.app/
 
 
 To run this project, ensure that the following prerequisites are installed on your system. 
