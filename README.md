@@ -11,19 +11,13 @@ We selected 20 countries, 5 countries for each category:
 | Lower Middle Income | India, Vietnam, Egypt, Zimbabwe, Bangladesh |
 | Low Income | Ethiopia, Afghanistan, Niger, Chad, Somalia |
 
+Website Link: lottery-of-birth.netlify.app
+
 To run this project, ensure that the following prerequisites are installed on your system. 
 ```bash
 npm install
 npm install lucide-react
 npm install d3 react-intersection-observer
-```
-
-## Instructions to Run the Project
-```bash
-git clone https://github.com/ananya-bontalavl/if-you-were-born-here.git
-cd LotteryOfBirth
-nvm install 22
-npm run dev
 ```
 
 Point to remember, once you finish a chapter you can't go back to the previous chapter, just like how life is, you can't go back to the time that has already passed.
