@@ -15,7 +15,7 @@ Project Live Link:
 https://lottery-of-birth.netlify.app/
 
 
-To run this project, ensure that the following prerequisites are installed on your system. 
+Make sure to run this project at LotteryOfBirth Folder and ensure that the following prerequisites are installed on your system.
 ```bash
 npm install
 npm install lucide-react
